@@ -96,19 +96,24 @@ local function get_lsp_pending(ignore_clients)
   return false
 end
 
-M.lspstatus = function()
+M.lspstatus = function(refresh, done)
   local lsp_clients = get_lsp_clients({ "null-ls" })
   local pending = get_lsp_pending({ "null-ls" })
   local bufnr = vim.api.nvim_get_current_buf()
   local winwidth = vim.o.laststatus == 3 and vim.o.columns or vim.fn.winwidth(bufnr)
   local provider_str = string.format("[%s]", table.concat(lsp_clients.lsp, ", "))
 
+  if pending then
+    refresh(interval.main)
+  else
+    done()
+  end
+
   return {
     condition = next(lsp_clients.lsp) ~= nil,
     icon = pending and loading() or (winwidth > widen_width and icon.widen or icon.normal),
     provider = winwidth > widen_width and provider_str or provider.lsp,
     hl = { fg = "#8be9fd", bg = colors.bg, bold = true },
-    interval = pending and interval.main or interval.init,
   }
 end
 

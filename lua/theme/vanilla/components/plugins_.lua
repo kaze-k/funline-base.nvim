@@ -81,15 +81,21 @@ local function loading()
   return last_spinner
 end
 
-M.codeium = function()
+M.codeium = function(refresh, done)
   local icon
   local provider
-  local interval = time.init
   local status = plugins
       and plugins["codeium.vim"]
       and plugins["codeium.vim"]._.loaded
       and vim.fn["codeium#GetStatusString"]()
     or ""
+
+  if status == string.match(status, "^%s%*%s$") then
+    refresh(time.main)
+  else
+    done()
+  end
+
   if status == string.match(status, "^%sON$") then
     icon = codeium_icons.on
     provider = ""
@@ -99,7 +105,6 @@ M.codeium = function()
   elseif status == string.match(status, "^%s%*%s$") then
     icon = loading()
     provider = ""
-    interval = time.main
   elseif status == string.match(status, "^%s0%s$") then
     icon = codeium_icons.codeium
     provider = "0/0"
@@ -116,7 +121,6 @@ M.codeium = function()
     icon = icon,
     provider = provider,
     hl = { fg = "#09b6a2", bg = colors.bg, bold = true },
-    interval = interval,
   }
 end
 
