@@ -26,7 +26,7 @@ end
 M.lazystatus = function()
   return {
     provider = lazyStatus.updates(),
-    hl = { fg = "#f1fa8c", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#f1b00c", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
@@ -39,14 +39,14 @@ M.session = function()
     condition = condition,
     icon = icon,
     provider = session_name,
-    hl = { fg = "#8be9fd", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#8ba9fd", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
 M.lightbulb = function()
   return {
     provider = nvim_lightbulb.get_status_text(),
-    hl = { fg = "#8be9fd", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#8ba9fd", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 

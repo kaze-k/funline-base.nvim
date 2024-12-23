@@ -10,7 +10,7 @@ M.date = function()
     condition = utils.widen_condition(140),
     icon = "",
     provider = date,
-    hl = { fg = "#f1fa8c", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#f1b00c", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
@@ -21,7 +21,7 @@ M.time = function()
     -- TODO:按照时间来显示图标
     icon = "",
     provider = time,
-    hl = { fg = "#f1fa8c", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#f1b00c", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 

@@ -22,7 +22,7 @@ M.warn = function()
     condition = #get_diagnostic("WARN") > 0,
     icon = "",
     provider = #get_diagnostic("WARN"),
-    hl = { fg = "#f1fa8c", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#f1ba8c", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 

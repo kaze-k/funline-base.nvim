@@ -7,7 +7,7 @@ M.branch = function()
     condition = vim.b.gitsigns_status_dict ~= nil and vim.b.gitsigns_status_dict.head ~= nil,
     icon = "",
     provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.head or vim.b.gitsigns_head,
-    hl = { fg = "#8be9fd", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#5ac9a0", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
@@ -29,7 +29,7 @@ M.change = function()
       and vim.b.gitsigns_status_dict.changed > 0,
     icon = "",
     provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.changed,
-    hl = { fg = "#f1fa8c", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#f1aa8c", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
