@@ -14,7 +14,7 @@ local icons = {
 }
 
 M.autosave = function()
-  local hl = { fg = "#50fa7b", bg = colors.bg, bold = true }
+  local hl = { fg = "#50fa7b", bg = colors.statusline_hl("bg"), bold = true }
   local autoSave = vim.g.loaded_auto_save
 
   return {
@@ -26,7 +26,7 @@ end
 M.lazystatus = function()
   return {
     provider = lazyStatus.updates(),
-    hl = { fg = "#f1fa8c", bg = colors.bg, bold = true },
+    hl = { fg = "#f1fa8c", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
@@ -39,14 +39,14 @@ M.session = function()
     condition = condition,
     icon = icon,
     provider = session_name,
-    hl = { fg = "#8be9fd", bg = colors.bg, bold = true },
+    hl = { fg = "#8be9fd", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
 M.lightbulb = function()
   return {
     provider = nvim_lightbulb.get_status_text(),
-    hl = { fg = "#8be9fd", bg = colors.bg, bold = true },
+    hl = { fg = "#8be9fd", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
@@ -120,7 +120,7 @@ M.codeium = function(refresh, done)
     condition = plugins and plugins["codeium.vim"] and plugins["codeium.vim"]._.loaded,
     icon = icon,
     provider = provider,
-    hl = { fg = "#09b6a2", bg = colors.bg, bold = true },
+    hl = { fg = "#09b6a2", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 

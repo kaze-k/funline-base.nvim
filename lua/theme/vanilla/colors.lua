@@ -1,10 +1,9 @@
 local M = {}
 
-local statusline_hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
-
-M.fg = statusline_hl.fg
-
-M.bg = statusline_hl.bg
+M.statusline_hl = function(name)
+  local hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
+  return hl[name]
+end
 
 M.mode_colors = {
   ["n"] = "#ff79c6",

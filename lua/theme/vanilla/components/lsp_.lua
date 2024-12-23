@@ -113,7 +113,7 @@ M.lspstatus = function(refresh, done)
     condition = next(lsp_clients.lsp) ~= nil,
     icon = pending and loading() or (winwidth > widen_width and icon.widen or icon.normal),
     provider = winwidth > widen_width and provider_str or provider.lsp,
-    hl = { fg = "#8be9fd", bg = colors.bg, bold = true },
+    hl = { fg = "#8be9fd", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
@@ -128,7 +128,7 @@ M.nlsstatus = function()
     condition = next(clients) ~= nil,
     icon = icon.nls,
     provider = provider.nls,
-    hl = { fg = "#8be9fd", bg = colors.bg, bold = true },
+    hl = { fg = "#8be9fd", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 

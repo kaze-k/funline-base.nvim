@@ -5,7 +5,7 @@ local M = {}
 M.separator = function()
   return {
     icon = "",
-    hl = { fg = colors.fg, bg = colors.bg },
+    hl = { fg = colors.statusline_hl("fg"), bg = colors.statusline_hl("bg") },
   }
 end
 

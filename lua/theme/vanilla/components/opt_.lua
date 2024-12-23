@@ -36,7 +36,7 @@ M.search = function()
       condition = search_count.total > 0,
       icon = icon,
       provider = search_str,
-      hl = { fg = "#f1fa8c", bg = colors.bg, bold = true },
+      hl = { fg = "#f1fa8c", bg = colors.statusline_hl("bg"), bold = true },
     }
   end
 end
@@ -59,7 +59,7 @@ M.spell = function()
   return {
     condition = vim.opt.spell:get(),
     provider = spell_toString(spelllang),
-    hl = { fg = "#ff5555", bg = colors.bg, bold = true },
+    hl = { fg = "#ff5555", bg = colors.statusline_hl("bg"), bold = true },
   }
 end
 
