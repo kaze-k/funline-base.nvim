@@ -23,7 +23,7 @@ local opt = components.opt_
 local plugins = components.plugins_
 local separator = components.separator_
 
-local highlight = { fg = colors.fg, bg = colors.bg }
+local highlight = { fg = colors.statusline_hl("fg"), bg = colors.statusline_hl("bg") }
 
 local statusline = {
   left = {
@@ -67,12 +67,7 @@ local specialline = {
     separator.separator,
     mode.mode,
   },
-  mid = {
-    {
-      provider = "Just do it",
-      hl = { fg = "#8be9fd", bg = colors.bg, bold = true, italic = true },
-    },
-  },
+  mid = {},
   right = {
     datetime.date,
     datetime.time,
