@@ -25,6 +25,7 @@ end
 
 M.lazystatus = function()
   return {
+    condition = lazyStatus.updates(),
     provider = lazyStatus.updates(),
     hl = { fg = "#f1b00c", bg = colors.statusline_hl("bg"), bold = true },
   }

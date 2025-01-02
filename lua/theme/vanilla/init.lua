@@ -84,7 +84,7 @@ local refresh = {
   interval = 1000,
 }
 
-local handler = function(update)
+local handle_update = function(update)
   if vim.o.statusline == "%!vm#themes#statusline()" then
     update(false)
   else
@@ -98,7 +98,7 @@ M.config = {
   specialline = specialline,
   specialtypes = specialtypes,
   refresh = refresh,
-  handler = handler,
+  handle_update = handle_update,
 }
 
 return M
