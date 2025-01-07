@@ -1,4 +1,3 @@
-local datetime = require("theme.vanilla.components.datetime")
 local diagnostic = require("theme.vanilla.components.diagnostic")
 local fileinfo = require("theme.vanilla.components.fileinfo")
 local git = require("theme.vanilla.components.git")
@@ -19,7 +18,6 @@ local plugins_ = require("theme.vanilla.components.plugins_")
 local separator_ = require("theme.vanilla.components.separator_")
 
 local M = {
-  datetime = datetime,
   diagnostic = diagnostic,
   fileinfo = fileinfo,
   git = git,

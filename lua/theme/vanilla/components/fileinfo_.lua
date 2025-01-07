@@ -161,7 +161,6 @@ M.lineratio = function()
   local line_ratio = get_line_ratio()
   local icon =
     col(line_ratio_icons.top, line_ratio_icons.bottom, line_ratio_icons[math.ceil(line_ratio / #line_ratio_icons)])
-  -- TODO: 解析%
   local provider = col("TOP", "BOT", string.format("%s%%", tostring(line_ratio)))
 
   return {
