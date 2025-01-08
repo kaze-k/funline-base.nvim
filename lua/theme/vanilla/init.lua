@@ -3,25 +3,15 @@ local M = {}
 local components = require("theme.vanilla.components")
 local colors = require("theme.vanilla.colors")
 
--- local datetime = components.datetime
--- local diagnostic = components.diagnostic
--- local fileinfo = components.fileinfo
--- local git = components.git
--- local lsp = components.lsp
--- local mode = components.mode
--- local opt = components.opt
--- local plugins = components.plugins
--- local separator = components.separator
-
-local datetime = components.datetime_
-local diagnostic = components.diagnostic_
-local fileinfo = components.fileinfo_
-local git = components.git_
-local lsp = components.lsp_
-local mode = components.mode_
-local opt = components.opt_
-local plugins = components.plugins_
-local separator = components.separator_
+local datetime = components.datetime
+local diagnostic = components.diagnostic
+local fileinfo = components.fileinfo
+local git = components.git
+local lsp = components.lsp
+local mode = components.mode
+local opt = components.opt
+local plugins = components.plugins
+local separator = components.separator
 
 local highlight = { fg = colors.statusline_hl("fg"), bg = colors.statusline_hl("bg") }
 

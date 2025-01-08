@@ -96,85 +96,40 @@ local function get_lsp_pending(ignore_clients)
   return false
 end
 
-M.lspstatus = {
-  condition = function()
-    local lsp_clients = get_lsp_clients({ "null-ls" })
+M.lspstatus = function(refresh, done)
+  local lsp_clients = get_lsp_clients({ "null-ls" })
+  local pending = get_lsp_pending({ "null-ls" })
+  local bufnr = vim.api.nvim_get_current_buf()
+  local winwidth = vim.o.laststatus == 3 and vim.o.columns or vim.fn.winwidth(bufnr)
+  local provider_str = string.format("[%s]", table.concat(lsp_clients.lsp, ", "))
 
-    if next(lsp_clients.lsp) == nil then
-      return false
-    end
+  if pending then
+    refresh(interval.main)
+  else
+    done()
+  end
 
-    return true
-  end,
-  icon = function()
-    local pending = get_lsp_pending({ "null-ls" })
-    local bufnr = vim.api.nvim_get_current_buf()
-    local winwidth = vim.fn.winwidth(bufnr)
+  return {
+    condition = next(lsp_clients.lsp) ~= nil,
+    icon = pending and loading() or (winwidth > widen_width and icon.widen or icon.normal),
+    provider = winwidth > widen_width and provider_str or provider.lsp,
+    hl = { fg = "#8bc9a0", bg = colors.statusline_hl("bg"), bold = true },
+  }
+end
 
-    if vim.o.laststatus == 3 then
-      winwidth = vim.o.columns
-    end
+M.nlsstatus = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({
+    name = "null-ls",
+    bufnr = bufnr,
+  })
 
-    if pending then
-      return loading()
-    end
-
-    if winwidth > widen_width then
-      return icon.widen
-    end
-
-    return icon.normal
-  end,
-  provider = function()
-    local lsp_clients = get_lsp_clients({ "null-ls" })
-    local bufnr = vim.api.nvim_get_current_buf()
-    local winwidth = vim.fn.winwidth(bufnr)
-
-    if vim.o.laststatus == 3 then
-      winwidth = vim.o.columns
-    end
-
-    if winwidth > widen_width then
-      return string.format("[%s]", table.concat(lsp_clients.lsp, ", "))
-    end
-
-    return provider.lsp
-  end,
-  hl = { fg = "#8be9fd", bg = colors.bg, bold = true },
-  interval = function()
-    local pending = get_lsp_pending({ "null-ls" })
-
-    if pending then
-      return interval.main
-    end
-
-    return interval.init
-  end,
-}
-
-M.nlsstatus = {
-  condition = function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local clients = vim.lsp.get_clients({
-      name = "null-ls",
-      bufnr = bufnr,
-    })
-
-    if next(clients) == nil then
-      return false
-    end
-
-    for _, client in ipairs(clients) do
-      if client.name ~= "null-ls" then
-        return false
-      end
-    end
-
-    return true
-  end,
-  icon = icon.nls,
-  provider = provider.nls,
-  hl = { fg = "#8be9fd", bg = colors.bg, bold = true },
-}
+  return {
+    condition = next(clients) ~= nil,
+    icon = icon.nls,
+    provider = provider.nls,
+    hl = { fg = "#8bc9a0", bg = colors.statusline_hl("bg"), bold = true },
+  }
+end
 
 return M

@@ -8,32 +8,40 @@ local function get_diagnostic(severity)
   })
 end
 
-M.error = {
-  condition = function() return #get_diagnostic("ERROR") > 0 end,
-  icon = "",
-  provider = function() return #get_diagnostic("ERROR") end,
-  hl = { fg = "#ff5555", bg = colors.bg, bold = true },
-}
+M.error = function()
+  return {
+    condition = #get_diagnostic("ERROR") > 0,
+    icon = "",
+    provider = #get_diagnostic("ERROR"),
+    hl = { fg = "#ff5555", bg = colors.statusline_hl("bg"), bold = true },
+  }
+end
 
-M.warn = {
-  condition = function() return #get_diagnostic("WARN") > 0 end,
-  icon = "",
-  provider = function() return #get_diagnostic("WARN") end,
-  hl = { fg = "#f1fa8c", bg = colors.bg, bold = true },
-}
+M.warn = function()
+  return {
+    condition = #get_diagnostic("WARN") > 0,
+    icon = "",
+    provider = #get_diagnostic("WARN"),
+    hl = { fg = "#f1ba8c", bg = colors.statusline_hl("bg"), bold = true },
+  }
+end
 
-M.hint = {
-  condition = function() return #get_diagnostic("HINT") > 0 end,
-  icon = "󰌶",
-  provider = function() return #get_diagnostic("HINT") end,
-  hl = { fg = "#8be9d1", bg = colors.bg, bold = true },
-}
+M.hint = function()
+  return {
+    condition = #get_diagnostic("HINT") > 0,
+    icon = "󰌶",
+    provider = #get_diagnostic("HINT"),
+    hl = { fg = "#8be9d1", bg = colors.statusline_hl("bg"), bold = true },
+  }
+end
 
-M.info = {
-  condition = function() return #get_diagnostic("INFO") > 0 end,
-  icon = "",
-  provider = function() return #get_diagnostic("INFO") end,
-  hl = { fg = "#8be9fd", bg = colors.bg, bold = true },
-}
+M.info = function()
+  return {
+    condition = #get_diagnostic("INFO") > 0,
+    icon = "",
+    provider = #get_diagnostic("INFO"),
+    hl = { fg = "#8be9fd", bg = colors.statusline_hl("bg"), bold = true },
+  }
+end
 
 return M

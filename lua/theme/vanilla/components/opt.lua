@@ -2,6 +2,45 @@ local colors = require("theme.vanilla.colors")
 
 local M = {}
 
+M.search = function()
+  local search_count
+  if vim.v.hlsearch == 1 then
+    search_count = vim.fn.searchcount({
+      recompute = 1,
+      maxcount = -1,
+    })
+    if not search_count.total then
+      search_count.total = 0
+    end
+    if not search_count.current then
+      search_count.current = 0
+    end
+    local squeeze_width = vim.fn.winwidth(0)
+    local search_term = vim.fn.getreg("/")
+
+    if vim.o.laststatus == 3 then
+      squeeze_width = vim.o.columns
+    end
+
+    local formated_str = string.format("%s[%d/%d]", search_term, search_count.current, search_count.total)
+    local search_str = squeeze_width > 140 and formated_str or search_term
+
+    local icon = ""
+    if vim.fn.getcmdtype() == "/" then
+      icon = ""
+    elseif vim.fn.getcmdtype() == "?" then
+      icon = ""
+    end
+
+    return {
+      condition = search_count.total > 0,
+      icon = icon,
+      provider = search_str,
+      hl = { fg = "#f1fa8c", bg = colors.statusline_hl("bg"), bold = true },
+    }
+  end
+end
+
 local function spell_toString(str)
   if type(str) == "table" then
     if #str > 2 then
@@ -14,48 +53,14 @@ local function spell_toString(str)
   end
 end
 
-M.Spell = {
-  condition = function() return vim.opt.spell:get() end,
-  icon = "󰓆",
-  provider = function()
-    local spelllange = vim.opt.spelllang:get()
-    return spell_toString(spelllange)
-  end,
-  hl = { fg = "#ff5555", bg = colors.bg, bold = true },
-}
+M.spell = function()
+  local spelllang = vim.opt.spelllang:get()
 
-M.Search = {
-  condition = function()
-    local search_count = vim.fn.searchcount({
-      recompute = 1,
-      maxcount = -1,
-    })
-    local active_result = vim.v.hlsearch == 1 and search_count.total > 0
-    if active_result then
-      return true
-    end
-    return false
-  end,
-  icon = "",
-  provider = function()
-    local squeeze_width = vim.fn.winwidth(0)
-    local search_term = vim.fn.getreg("/")
-    local search_count = vim.fn.searchcount({
-      recompute = 1,
-      maxcount = -1,
-    })
-
-    if vim.o.laststatus == 3 then
-      squeeze_width = vim.o.columns
-    end
-
-    if squeeze_width > 140 then
-      return string.format("%s[%d/%d]", search_term, search_count.current, search_count.total)
-    else
-      return search_term
-    end
-  end,
-  hl = { fg = "#f1fa8c", bg = colors.bg, bold = true },
-}
+  return {
+    condition = vim.opt.spell:get(),
+    provider = spell_toString(spelllang),
+    hl = { fg = "#ff5555", bg = colors.statusline_hl("bg"), bold = true },
+  }
+end
 
 return M

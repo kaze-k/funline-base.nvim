@@ -76,10 +76,12 @@ local mode = {
   ["null"] = "NONE",
 }
 
-M.mode = {
-  icon = function() return icon[vim.fn.mode()] end,
-  provider = function() return mode[vim.fn.mode()] end,
-  hl = function() return { fg = colors.mode_colors[vim.fn.mode()], bg = colors.bg, bold = true, italic = true } end,
-}
+M.mode = function()
+  return {
+    icon = icon[vim.fn.mode()],
+    provider = mode[vim.fn.mode()],
+    hl = { fg = colors.mode_colors[vim.fn.mode()], bg = colors.statusline_hl("bg"), bold = true, italic = true },
+  }
+end
 
 return M
