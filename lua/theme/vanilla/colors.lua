@@ -1,8 +1,8 @@
 local M = {}
 
-M.statusline_hl = function(name)
-  local hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
-  return hl[name]
+M.hl = function(name, info)
+  local hl = vim.api.nvim_get_hl(0, { name = name })
+  return hl[info]
 end
 
 M.mode_colors = {

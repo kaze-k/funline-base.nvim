@@ -80,7 +80,7 @@ M.mode = function()
   return {
     icon = icon[vim.fn.mode()],
     provider = mode[vim.fn.mode()],
-    hl = { fg = colors.mode_colors[vim.fn.mode()], bg = colors.statusline_hl("bg"), bold = true, italic = true },
+    hl = { fg = colors.mode_colors[vim.fn.mode()], bg = colors.hl("StatusLine", "bg"), bold = true, italic = true },
   }
 end
 

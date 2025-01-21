@@ -12,7 +12,7 @@ M.date = function()
     condition = utils.widen_condition(140),
     icon = "",
     provider = date,
-    hl = { fg = "#f1b00c", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#f1b00c", bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -29,7 +29,7 @@ M.time = function()
   return {
     icon = icon,
     provider = time,
-    hl = { fg = "#f1b00c", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#f1b00c", bg = colors.hl("StatusLine", "bg") },
   }
 end
 

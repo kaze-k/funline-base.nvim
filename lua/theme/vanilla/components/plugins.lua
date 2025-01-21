@@ -14,7 +14,7 @@ local icons = {
 }
 
 M.autosave = function()
-  local hl = { fg = "#50fa7b", bg = colors.statusline_hl("bg"), bold = true }
+  local hl = { fg = "#50fa7b", bg = colors.hl("StatusLine", "bg") }
   local autoSave = vim.g.loaded_auto_save
 
   return {
@@ -27,7 +27,7 @@ M.lazystatus = function()
   return {
     condition = lazyStatus.updates(),
     provider = lazyStatus.updates(),
-    hl = { fg = "#f1b00c", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#f1b00c", bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -40,14 +40,14 @@ M.session = function()
     condition = condition,
     icon = icon,
     provider = session_name,
-    hl = { fg = "#8ba9fd", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#8ba9fd", bg = colors.hl("StatusLine", "bg") },
   }
 end
 
 M.lightbulb = function()
   return {
     provider = nvim_lightbulb.get_status_text(),
-    hl = { fg = "#8ba9fd", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#8ba9fd", bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -82,7 +82,7 @@ local function loading()
   return last_spinner
 end
 
-M.codeium = function(refresh, done)
+M.codeium = function(ctx)
   local icon
   local provider
   local status = plugins
@@ -92,9 +92,9 @@ M.codeium = function(refresh, done)
     or ""
 
   if status == string.match(status, "^%s%*%s$") then
-    refresh(time.main)
+    ctx.refresh(time.main)
   else
-    done()
+    ctx.done()
   end
 
   if status == string.match(status, "^%sON$") then
@@ -121,7 +121,7 @@ M.codeium = function(refresh, done)
     condition = plugins and plugins["codeium.vim"] and plugins["codeium.vim"]._.loaded,
     icon = icon,
     provider = provider,
-    hl = { fg = "#09b6a2", bg = colors.statusline_hl("bg"), bold = true },
+    hl = { fg = "#09b6a2", bg = colors.hl("StatusLine", "bg") },
   }
 end
 
