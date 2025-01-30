@@ -15,11 +15,6 @@ local M = {
   turquoise = "#09b6a2",
 }
 
-M.hl = function(name, info)
-  local hl = vim.api.nvim_get_hl(0, { name = name })
-  return hl[info]
-end
-
 M.mode_colors = {
   ["n"] = "#ff79c6",
   ["niI"] = "#ff79c6",

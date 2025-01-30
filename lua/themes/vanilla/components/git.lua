@@ -12,7 +12,7 @@ M.branch = function()
     icon = "",
     provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.head or vim.b.gitsigns_head,
     padding_right = " ",
-    hl = { fg = colors.green, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.green, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 
@@ -26,7 +26,7 @@ M.add = function()
     icon = "",
     provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.added,
     padding_right = " ",
-    hl = { fg = colors.light_green, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 
@@ -40,7 +40,7 @@ M.change = function()
     icon = "",
     provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.changed,
     padding_right = " ",
-    hl = { fg = colors.orange, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.orange, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 
@@ -54,7 +54,7 @@ M.remove = function()
     icon = "",
     provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.removed,
     padding_right = " ",
-    hl = { fg = colors.red, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.red, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 

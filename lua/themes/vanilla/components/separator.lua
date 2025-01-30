@@ -1,11 +1,11 @@
-local colors = require("themes.vanilla.colors")
+local utils = require("funline-base.utils")
 
 local M = {}
 
 M.separator = function()
   return {
     icon = " ",
-    hl = { fg = colors.hl("StatusLine", "fg"), bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = utils.get_hl("StatusLine", "fg"), bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 

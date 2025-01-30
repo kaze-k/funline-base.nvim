@@ -1,4 +1,5 @@
 local colors = require("themes.vanilla.colors")
+local utils = require("funline-base.utils")
 
 local M = {}
 
@@ -14,7 +15,7 @@ M.error = function()
     icon = "",
     provider = #get_diagnostic("ERROR"),
     padding_left = " ",
-    hl = { fg = colors.red, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.red, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 
@@ -24,7 +25,7 @@ M.warn = function()
     icon = "",
     provider = #get_diagnostic("WARN"),
     padding_left = " ",
-    hl = { fg = colors.light_orange, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.light_orange, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 
@@ -34,7 +35,7 @@ M.hint = function()
     icon = "󰌶",
     provider = #get_diagnostic("HINT"),
     padding_left = " ",
-    hl = { fg = colors.light_cyan, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.light_cyan, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 
@@ -44,7 +45,7 @@ M.info = function()
     icon = "",
     provider = #get_diagnostic("INFO"),
     padding_left = " ",
-    hl = { fg = colors.light_blue, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.light_blue, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 

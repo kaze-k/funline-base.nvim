@@ -1,4 +1,5 @@
 local colors = require("themes.vanilla.colors")
+local utils = require("funline-base.utils")
 
 local M = {}
 
@@ -81,7 +82,7 @@ M.mode = function()
     icon = icon[vim.fn.mode()],
     provider = mode[vim.fn.mode()],
     padding_right = " ",
-    hl = { fg = colors.mode_colors[vim.fn.mode()], bg = colors.hl("StatusLine", "bg"), bold = true, italic = true },
+    hl = { fg = colors.mode_colors[vim.fn.mode()], bg = utils.get_hl("StatusLine", "bg"), bold = true, italic = true },
   }
 end
 

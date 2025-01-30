@@ -13,7 +13,7 @@ M.date = function()
     icon = "",
     provider = date,
     padding_left = " ",
-    hl = { fg = colors.yellow, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 
@@ -31,7 +31,7 @@ M.time = function()
     icon = icon,
     provider = time,
     padding_left = " ",
-    hl = { fg = colors.yellow, bg = colors.hl("StatusLine", "bg") },
+    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine", "bg") },
   }
 end
 
