@@ -2,7 +2,7 @@ local plugins = require("lazy.core.config").plugins
 local lazyStatus = require("lazy.status")
 
 local colors = require("themes.vanilla.colors")
-local utils = require("themes.vanilla.utils")
+local utils = require("funline-base.utils")
 
 local M = {}
 

@@ -1,5 +1,5 @@
 local colors = require("themes.vanilla.colors")
-local utils = require("themes.vanilla.utils")
+local utils = require("funline-base.utils")
 
 local M = {}
 
