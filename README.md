@@ -1,3 +1,5 @@
+# funline-base.nvim
+
 This is a personal project based on [funline.nvim](https://github.com/kaze-k/funline.nvim)
 
 ## Requirements
