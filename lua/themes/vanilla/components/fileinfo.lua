@@ -1,5 +1,5 @@
-local colors = require("theme.vanilla.colors")
-local utils = require("theme.vanilla.utils")
+local colors = require("themes.vanilla.colors")
+local utils = require("themes.vanilla.utils")
 
 local M = {}
 
@@ -65,14 +65,13 @@ local function buffer_is_readonly()
   return vim.bo.readonly
 end
 
-local function buffer_is_empty() return vim.fn.empty(vim.fn.expand("%:t")) ~= 1 and vim.bo.buftype ~= "nofile" end
-
 M.fileicon = function()
   local icon, color = utils.get_icon_and_color()
 
   return {
-    condition = buffer_is_empty(),
+    condition = utils.buffer_is_empty() and utils.buftype_not_nofile() and vim.bo.buftype ~= "prompt",
     icon = icon,
+    padding_right = " ",
     hl = { fg = color, bg = colors.hl("StatusLine", "bg") },
   }
 end
@@ -80,15 +79,16 @@ end
 M.filename = function()
   local hl = { fg = colors.hl("StatusLine", "fg"), bg = colors.hl("StatusLine", "bg") }
   if buffer_is_readonly() then
-    hl = { fg = "#ff0000", bg = colors.hl("StatusLine", "bg"), bold = true }
+    hl = { fg = colors.light_red, bg = colors.hl("StatusLine", "bg"), bold = true }
   end
   if vim.bo.modifiable and vim.bo.modified then
     hl = { fg = colors.hl("StatusLine", "fg"), bg = colors.hl("StatusLine", "bg"), bold = true, italic = true }
   end
 
   return {
-    condition = buffer_is_empty(),
+    condition = utils.buffer_is_empty() and utils.buftype_not_nofile(),
     provider = vim.fn.expand("%:t"),
+    padding_right = " ",
     hl = hl,
   }
 end
@@ -98,17 +98,17 @@ M.filemark = function()
   local hl = { fg = colors.hl("StatusLine", "fg"), bg = colors.hl("StatusLine", "bg"), bold = true }
   if vim.bo.filetype == "help" then
     icon = icons.help
-    hl = { fg = "#f1fa8c", bg = colors.hl("StatusLine", "bg"), bold = true }
+    hl = { fg = colors.light_yellow, bg = colors.hl("StatusLine", "bg"), bold = true }
   elseif buffer_is_readonly() then
     icon = icons.readonly
-    hl = { fg = "#ff0000", bg = colors.hl("StatusLine", "bg"), bold = true }
+    hl = { fg = colors.light_red, bg = colors.hl("StatusLine", "bg"), bold = true }
   elseif vim.bo.modifiable and vim.bo.modifiable then
     icon = icons.modified
-    hl = { fg = "#50fa7b", bg = colors.hl("StatusLine", "bg"), bold = true }
+    hl = { fg = colors.light_green, bg = colors.hl("StatusLine", "bg"), bold = true }
   end
   local condition = false
 
-  if buffer_is_empty() or vim.bo.buftype == "prompt" then
+  if (utils.buffer_is_empty() and utils.buftype_not_nofile()) or vim.bo.buftype == "prompt" then
     condition = false
   end
   condition = vim.fn.empty(vim.fn.expand("%:t")) ~= 1
@@ -117,6 +117,7 @@ M.filemark = function()
   return {
     condition = condition,
     icon = icon,
+    padding_right = " ",
     hl = hl,
   }
 end
@@ -125,7 +126,8 @@ M.fileindent = function()
   return {
     condition = utils.widen_condition(140),
     provider = string.format("SPC:%s", vim.bo.shiftwidth),
-    hl = { fg = "#ff79c6", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.pink, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -147,7 +149,8 @@ M.fileformat = function()
   return {
     icon = icon,
     provider = provider,
-    hl = { fg = "#ff79c6", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.pink, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -155,7 +158,8 @@ M.lineinfo = function()
   return {
     icon = icons.lineinfo,
     provider = string.format("%d:%d[%d]", vim.fn.col("."), vim.fn.line("."), vim.fn.line("$")),
-    hl = { fg = "#ff79c6", bg = colors.hl("StatusLine", "bg"), bold = true },
+    padding_left = " ",
+    hl = { fg = colors.pink, bg = colors.hl("StatusLine", "bg"), bold = true },
   }
 end
 
@@ -166,9 +170,11 @@ M.lineratio = function()
   local provider = col("TOP", "BOT", string.format("%s%%", tostring(line_ratio)))
 
   return {
+    condition = utils.widen_condition(140),
     icon = icon,
     provider = provider,
-    hl = { fg = "#50fa7b", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.light_green, bg = colors.hl("StatusLine", "bg") },
   }
 end
 

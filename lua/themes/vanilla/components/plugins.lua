@@ -1,9 +1,8 @@
-local lazyStatus = require("lazy.status")
-local possession = require("possession.session")
-local nvim_lightbulb = require("nvim-lightbulb")
 local plugins = require("lazy.core.config").plugins
+local lazyStatus = require("lazy.status")
 
-local colors = require("theme.vanilla.colors")
+local colors = require("themes.vanilla.colors")
+local utils = require("themes.vanilla.utils")
 
 local M = {}
 
@@ -14,11 +13,13 @@ local icons = {
 }
 
 M.autosave = function()
-  local hl = { fg = "#50fa7b", bg = colors.hl("StatusLine", "bg") }
+  local hl = { fg = colors.light_cyan, bg = colors.hl("StatusLine", "bg") }
   local autoSave = vim.g.loaded_auto_save
 
   return {
+    condition = plugins and plugins["auto-save.nvim"] and plugins["auto-save.nvim"]._.loaded,
     icon = autoSave and icons.autosave_on or icons.autosave_off,
+    padding_left = " ",
     hl = hl,
   }
 end
@@ -27,27 +28,38 @@ M.lazystatus = function()
   return {
     condition = lazyStatus.updates(),
     provider = lazyStatus.updates(),
-    hl = { fg = "#f1b00c", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.yellow, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
 M.session = function()
-  local session_name = possession.get_session_name()
-  local condition = possession.get_session_name() ~= nil
+  local possession_ok, possession = pcall(require, "possession.session")
+
+  local session_name = possession_ok and possession.get_session_name()
+  local condition = plugins
+    and plugins["possession.nvim"]
+    and plugins["possession.nvim"]._.loaded
+    and possession_ok
+    and possession.get_session_name() ~= nil
   local icon = icons.session
 
   return {
     condition = condition,
     icon = icon,
     provider = session_name,
-    hl = { fg = "#8ba9fd", bg = colors.hl("StatusLine", "bg") },
+    padding_right = " ",
+    hl = { fg = colors.blue, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
 M.lightbulb = function()
+  local nvim_lightbulb_ok, nvim_lightbulb = pcall(require, "nvim-lightbulb")
+
   return {
-    provider = nvim_lightbulb.get_status_text(),
-    hl = { fg = "#8ba9fd", bg = colors.hl("StatusLine", "bg") },
+    condition = plugins and plugins["nvim-lightbulb"] and plugins["nvim-lightbulb"]._.loaded and nvim_lightbulb_ok,
+    provider = nvim_lightbulb_ok and nvim_lightbulb.get_status_text(),
+    hl = { fg = colors.blue, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -63,24 +75,7 @@ local time = {
   main = 100,
 }
 
-local spinners = { "◜", "◠", "◝", "◞", "◡", "◟" }
-local index = 0
-local last_time = vim.uv.now()
-local last_spinner = nil
-local function loading()
-  local current_time = vim.uv.now()
-
-  if current_time - last_time >= time.main then
-    last_time = current_time
-    index = index + 1
-    if index > #spinners then
-      index = 1
-    end
-    last_spinner = spinners[index]
-    return spinners[index]
-  end
-  return last_spinner
-end
+local loading = utils.get_loading(time.main)
 
 M.codeium = function(ctx)
   local icon
@@ -121,7 +116,8 @@ M.codeium = function(ctx)
     condition = plugins and plugins["codeium.vim"] and plugins["codeium.vim"]._.loaded,
     icon = icon,
     provider = provider,
-    hl = { fg = "#09b6a2", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.turquoise, bg = colors.hl("StatusLine", "bg") },
   }
 end
 

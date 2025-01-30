@@ -1,4 +1,4 @@
-local colors = require("theme.vanilla.colors")
+local colors = require("themes.vanilla.colors")
 
 local M = {}
 
@@ -80,6 +80,7 @@ M.mode = function()
   return {
     icon = icon[vim.fn.mode()],
     provider = mode[vim.fn.mode()],
+    padding_right = " ",
     hl = { fg = colors.mode_colors[vim.fn.mode()], bg = colors.hl("StatusLine", "bg"), bold = true, italic = true },
   }
 end

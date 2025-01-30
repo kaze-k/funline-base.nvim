@@ -1,4 +1,4 @@
-local colors = require("theme.vanilla.colors")
+local colors = require("themes.vanilla.colors")
 
 local M = {}
 
@@ -13,7 +13,8 @@ M.error = function()
     condition = #get_diagnostic("ERROR") > 0,
     icon = "",
     provider = #get_diagnostic("ERROR"),
-    hl = { fg = "#ff5555", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.red, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -22,7 +23,8 @@ M.warn = function()
     condition = #get_diagnostic("WARN") > 0,
     icon = "",
     provider = #get_diagnostic("WARN"),
-    hl = { fg = "#f1ba8c", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.light_orange, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -31,7 +33,8 @@ M.hint = function()
     condition = #get_diagnostic("HINT") > 0,
     icon = "󰌶",
     provider = #get_diagnostic("HINT"),
-    hl = { fg = "#8be9d1", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.light_cyan, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -40,7 +43,8 @@ M.info = function()
     condition = #get_diagnostic("INFO") > 0,
     icon = "",
     provider = #get_diagnostic("INFO"),
-    hl = { fg = "#8be9fd", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.light_blue, bg = colors.hl("StatusLine", "bg") },
   }
 end
 

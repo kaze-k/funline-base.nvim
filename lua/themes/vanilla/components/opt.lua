@@ -1,4 +1,5 @@
-local colors = require("theme.vanilla.colors")
+local colors = require("themes.vanilla.colors")
+local utils = require("themes.vanilla.utils")
 
 local M = {}
 
@@ -15,15 +16,10 @@ M.search = function()
     if not search_count.current then
       search_count.current = 0
     end
-    local squeeze_width = vim.fn.winwidth(0)
     local search_term = vim.fn.getreg("/")
 
-    if vim.o.laststatus == 3 then
-      squeeze_width = vim.o.columns
-    end
-
     local formated_str = string.format("%s[%d/%d]", search_term, search_count.current, search_count.total)
-    local search_str = squeeze_width > 140 and formated_str or search_term
+    local search_str = utils.widen_condition(140) and formated_str or search_term
 
     local icon = ""
     if vim.fn.getcmdtype() == "/" then
@@ -36,12 +32,16 @@ M.search = function()
       condition = search_count.total > 0,
       icon = icon,
       provider = search_str,
-      hl = { fg = "#f1fa8c", bg = colors.hl("StatusLine", "bg") },
+      hl = { fg = colors.light_yellow, bg = colors.hl("StatusLine", "bg") },
     }
   end
 end
 
 local function spell_toString(str)
+  if not utils.widen_condition(140) then
+    return
+  end
+
   if type(str) == "table" then
     if #str > 2 then
       return string.format("%s...", str[1])
@@ -58,8 +58,10 @@ M.spell = function()
 
   return {
     condition = vim.opt.spell:get(),
+    icon = "󰓆",
     provider = spell_toString(spelllang),
-    hl = { fg = "#ff5555", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.red, bg = colors.hl("StatusLine", "bg") },
   }
 end
 

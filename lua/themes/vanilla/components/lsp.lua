@@ -1,4 +1,5 @@
-local colors = require("theme.vanilla.colors")
+local colors = require("themes.vanilla.colors")
+local utils = require("themes.vanilla.utils")
 
 local M = {}
 
@@ -20,24 +21,7 @@ local interval = {
 
 local widen_width = 140
 
-local spinners = { "◜", "◠", "◝", "◞", "◡", "◟" }
-local index = 0
-local last_time = vim.uv.now()
-local last_spinner = nil
-local function loading()
-  local current_time = vim.uv.now()
-
-  if current_time - last_time >= interval.main then
-    last_time = current_time
-    index = index + 1
-    if index > #spinners then
-      index = 1
-    end
-    last_spinner = spinners[index]
-    return spinners[index]
-  end
-  return last_spinner
-end
+local loading = utils.get_loading(interval.main)
 
 local function get_lsp_clients(ignore_clients)
   local lsp_clients = {}
@@ -113,7 +97,8 @@ M.lspstatus = function(ctx)
     condition = next(lsp_clients.lsp) ~= nil,
     icon = pending and loading() or (winwidth > widen_width and icon.widen or icon.normal),
     provider = winwidth > widen_width and provider_str or provider.lsp,
-    hl = { fg = "#8bc9a0", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.cyan, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -128,7 +113,8 @@ M.nlsstatus = function()
     condition = next(clients) ~= nil,
     icon = icon.nls,
     provider = provider.nls,
-    hl = { fg = "#8bc9a0", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.cyan, bg = colors.hl("StatusLine", "bg") },
   }
 end
 

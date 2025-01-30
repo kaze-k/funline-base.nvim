@@ -1,5 +1,5 @@
-local colors = require("theme.vanilla.colors")
-local utils = require("theme.vanilla.utils")
+local colors = require("themes.vanilla.colors")
+local utils = require("themes.vanilla.utils")
 
 local M = {}
 
@@ -12,7 +12,8 @@ M.date = function()
     condition = utils.widen_condition(140),
     icon = "",
     provider = date,
-    hl = { fg = "#f1b00c", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.yellow, bg = colors.hl("StatusLine", "bg") },
   }
 end
 
@@ -29,7 +30,8 @@ M.time = function()
   return {
     icon = icon,
     provider = time,
-    hl = { fg = "#f1b00c", bg = colors.hl("StatusLine", "bg") },
+    padding_left = " ",
+    hl = { fg = colors.yellow, bg = colors.hl("StatusLine", "bg") },
   }
 end
 

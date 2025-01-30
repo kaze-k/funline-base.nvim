@@ -1,7 +1,7 @@
 local M = {}
 
-local components = require("theme.vanilla.components")
-local colors = require("theme.vanilla.colors")
+local components = require("themes.vanilla.components")
+local colors = require("themes.vanilla.colors")
 
 local datetime = components.datetime
 local diagnostic = components.diagnostic

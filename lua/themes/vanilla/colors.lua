@@ -1,4 +1,19 @@
-local M = {}
+local M = {
+  light_yellow = "#f1fa8c",
+  yellow = "#f1b00c",
+  light_red = "#ff0000",
+  red = "#ff5555",
+  light_green = "#50fa7b",
+  green = "#5ac9a0",
+  light_cyan = "#8be9d1",
+  cyan = "#8bc9a0",
+  light_orange = "#f1ba8c",
+  orange = "#f1aa8c",
+  light_blue = "#8be9fd",
+  blue = "#8ba9fd",
+  pink = "#ff79c6",
+  turquoise = "#09b6a2",
+}
 
 M.hl = function(name, info)
   local hl = vim.api.nvim_get_hl(0, { name = name })
