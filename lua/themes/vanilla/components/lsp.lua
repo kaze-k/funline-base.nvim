@@ -98,7 +98,7 @@ M.lspstatus = function(ctx)
     icon = pending and loading() or (winwidth > widen_width and icon.widen or icon.normal),
     provider = winwidth > widen_width and provider_str or provider.lsp,
     padding_left = " ",
-    hl = { fg = colors.cyan, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.cyan, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
@@ -114,7 +114,7 @@ M.nlsstatus = function()
     icon = icon.nls,
     provider = provider.nls,
     padding_left = " ",
-    hl = { fg = colors.cyan, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.cyan, bg = utils.get_hl("StatusLine").bg },
   }
 end
 

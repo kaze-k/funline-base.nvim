@@ -13,7 +13,7 @@ local opt = components.opt
 local plugins = components.plugins
 local separator = components.separator
 
-local highlight = { fg = utils.get_hl("StatusLine", "fg"), bg = utils.get_hl("StatusLine", "bg") }
+local highlight = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg }
 
 local statusline = {
   left = {

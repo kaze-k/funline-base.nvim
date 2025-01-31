@@ -72,17 +72,17 @@ M.fileicon = function()
     condition = utils.buffer_is_empty() and utils.buftype_not_nofile() and vim.bo.buftype ~= "prompt",
     icon = icon,
     padding_right = " ",
-    hl = { fg = color, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = color, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
 M.filename = function()
-  local hl = { fg = utils.get_hl("StatusLine", "fg"), bg = utils.get_hl("StatusLine", "bg") }
+  local hl = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg }
   if buffer_is_readonly() then
-    hl = { fg = colors.light_red, bg = utils.get_hl("StatusLine", "bg"), bold = true }
+    hl = { fg = colors.light_red, bg = utils.get_hl("StatusLine").bg, bold = true }
   end
   if vim.bo.modifiable and vim.bo.modified then
-    hl = { fg = utils.get_hl("StatusLine", "fg"), bg = utils.get_hl("StatusLine", "bg"), bold = true, italic = true }
+    hl = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg, bold = true, italic = true }
   end
 
   return {
@@ -95,16 +95,16 @@ end
 
 M.filemark = function()
   local icon
-  local hl = { fg = utils.get_hl("StatusLine", "fg"), bg = utils.get_hl("StatusLine", "bg"), bold = true }
+  local hl = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg, bold = true }
   if vim.bo.filetype == "help" then
     icon = icons.help
-    hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine", "bg"), bold = true }
+    hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine").bg, bold = true }
   elseif buffer_is_readonly() then
     icon = icons.readonly
-    hl = { fg = colors.light_red, bg = utils.get_hl("StatusLine", "bg"), bold = true }
+    hl = { fg = colors.light_red, bg = utils.get_hl("StatusLine").bg, bold = true }
   elseif vim.bo.modifiable and vim.bo.modifiable then
     icon = icons.modified
-    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine", "bg"), bold = true }
+    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg, bold = true }
   end
   local condition = false
 
@@ -127,7 +127,7 @@ M.fileindent = function()
     condition = utils.widen_condition(140),
     provider = string.format("SPC:%s", vim.bo.shiftwidth),
     padding_left = " ",
-    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
@@ -150,7 +150,7 @@ M.fileformat = function()
     icon = icon,
     provider = provider,
     padding_left = " ",
-    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
@@ -159,7 +159,7 @@ M.lineinfo = function()
     icon = icons.lineinfo,
     provider = string.format("%d:%d[%d]", vim.fn.col("."), vim.fn.line("."), vim.fn.line("$")),
     padding_left = " ",
-    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine", "bg"), bold = true },
+    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg, bold = true },
   }
 end
 
@@ -174,7 +174,7 @@ M.lineratio = function()
     icon = icon,
     provider = provider,
     padding_left = " ",
-    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg },
   }
 end
 

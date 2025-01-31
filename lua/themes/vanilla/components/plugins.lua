@@ -13,7 +13,7 @@ local icons = {
 }
 
 M.autosave = function()
-  local hl = { fg = colors.light_cyan, bg = utils.get_hl("StatusLine", "bg") }
+  local hl = { fg = colors.light_cyan, bg = utils.get_hl("StatusLine").bg }
   local autoSave = vim.g.loaded_auto_save
 
   return {
@@ -29,7 +29,7 @@ M.lazystatus = function()
     condition = lazyStatus.updates(),
     provider = lazyStatus.updates(),
     padding_left = " ",
-    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
@@ -49,7 +49,7 @@ M.session = function()
     icon = icon,
     provider = session_name,
     padding_right = " ",
-    hl = { fg = colors.blue, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.blue, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
@@ -59,7 +59,7 @@ M.lightbulb = function()
   return {
     condition = plugins and plugins["nvim-lightbulb"] and plugins["nvim-lightbulb"]._.loaded and nvim_lightbulb_ok,
     provider = nvim_lightbulb_ok and nvim_lightbulb.get_status_text(),
-    hl = { fg = colors.blue, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.blue, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
@@ -117,7 +117,7 @@ M.codeium = function(ctx)
     icon = icon,
     provider = provider,
     padding_left = " ",
-    hl = { fg = colors.turquoise, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.turquoise, bg = utils.get_hl("StatusLine").bg },
   }
 end
 

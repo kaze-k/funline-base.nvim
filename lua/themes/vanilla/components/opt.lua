@@ -32,7 +32,7 @@ M.search = function()
       condition = search_count.total > 0,
       icon = icon,
       provider = search_str,
-      hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine", "bg") },
+      hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine").bg },
     }
   end
 end
@@ -61,7 +61,7 @@ M.spell = function()
     icon = "󰓆",
     provider = spell_toString(spelllang),
     padding_left = " ",
-    hl = { fg = colors.red, bg = utils.get_hl("StatusLine", "bg") },
+    hl = { fg = colors.red, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
