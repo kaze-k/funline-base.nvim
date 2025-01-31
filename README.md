@@ -31,6 +31,8 @@ This is a personal project based on [funline.nvim](https://github.com/kaze-k/fun
 
 ## Themes
 
+- arc
+- powerlike
 - vanilla
 
 ## Configuration

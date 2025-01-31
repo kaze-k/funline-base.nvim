@@ -48,9 +48,9 @@ M.get_loading = function(speed)
   return loading
 end
 
-M.get_hl = function(name, info)
+M.get_hl = function(name, opt)
   local hl = vim.api.nvim_get_hl(0, { name = name })
-  return hl[info]
+  return hl[opt]
 end
 
 return M
