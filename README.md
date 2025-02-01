@@ -35,8 +35,11 @@ You can install it, but I recommend fork.
 ## Themes
 
 - arc
+![arc](./images/arc.png)
 - powerlike
+![powerlike](./images/powerlike.png)
 - vanilla
+![vanilla](./images/vanilla.png)
 
 ## Configuration
 
