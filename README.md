@@ -1,6 +1,6 @@
 # funline-base.nvim
 
-This is a personal project based on [funline.nvim](https://github.com/kaze-k/funline.nvim)
+This is a personal project based on [funline.nvim](https://github.com/kaze-k/funline.nvim).
 
 ## Requirements
 
@@ -13,6 +13,8 @@ This is a personal project based on [funline.nvim](https://github.com/kaze-k/fun
 - [codeium.vim](https://github.com/Exafunction/codeium.vim)
 
 ## Installation
+
+You can install it, but I recommend fork.
 
 ```lua
 {
