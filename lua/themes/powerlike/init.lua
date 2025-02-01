@@ -1,5 +1,7 @@
 local M = {}
 
+local utils = require("helper.utils")
+
 local components = require("themes.powerlike.components")
 
 local left = components.left
@@ -61,7 +63,7 @@ local specialline = {
 }
 
 local highlights = {
-  mid = { link = "StatusLine" },
+  mid = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg },
 }
 
 local specialtypes = {
