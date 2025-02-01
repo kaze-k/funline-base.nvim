@@ -59,7 +59,7 @@ local specialline = {
 }
 
 local highlights = {
-  mid = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg },
+  mid = function() return { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg } end,
 }
 
 local specialtypes = {
