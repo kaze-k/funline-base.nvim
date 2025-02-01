@@ -1,22 +1,10 @@
-local datetime = require("themes.vanilla.components.datetime")
-local diagnostic = require("themes.vanilla.components.diagnostic")
-local fileinfo = require("themes.vanilla.components.fileinfo")
-local git = require("themes.vanilla.components.git")
-local lsp = require("themes.vanilla.components.lsp")
-local mode = require("themes.vanilla.components.mode")
-local opt = require("themes.vanilla.components.opt")
-local plugins = require("themes.vanilla.components.plugins")
+local left = require("themes.vanilla.components.left")
+local right = require("themes.vanilla.components.right")
 local separator = require("themes.vanilla.components.separator")
 
 local M = {
-  datetime = datetime,
-  diagnostic = diagnostic,
-  fileinfo = fileinfo,
-  git = git,
-  lsp = lsp,
-  mode = mode,
-  opt = opt,
-  plugins = plugins,
+  left = left,
+  right = right,
   separator = separator,
 }
 

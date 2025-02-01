@@ -5,6 +5,7 @@ This is a personal project based on [funline.nvim](https://github.com/kaze-k/fun
 ## Requirements
 
 - Neovim >= 0.10.0
+- [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)
 - [lazy.nvim](https://github.com/folke/lazy.nvim)
 - [possession](https://github.com/jedrzejboczar/possession.nvim)
 - [nvim-lightbulb](https://github.com/kosayoda/nvim-lightbulb)

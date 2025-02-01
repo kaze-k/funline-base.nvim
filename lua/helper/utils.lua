@@ -1,14 +1,6 @@
-local devicons = require("nvim-web-devicons")
-
 local M = {}
 
-M.get_icon_and_color = function()
-  local filename = vim.fn.expand("%:t")
-  local ext = vim.fn.expand("%:e")
-  return devicons.get_icon_color(filename, ext, { default = true })
-end
-
-M.widen_condition = function(widen_width)
+function M.widen_condition(widen_width)
   local bufnr = vim.api.nvim_get_current_buf()
   local winwidth = vim.fn.winwidth(bufnr)
   if vim.o.laststatus == 3 then
@@ -21,11 +13,13 @@ M.widen_condition = function(widen_width)
   return false
 end
 
-M.buffer_is_empty = function() return vim.fn.empty(vim.fn.expand("%:t")) ~= 2 end
+function M.buffer_is_empty() return vim.fn.empty(vim.fn.expand("%:t")) == 1 end
 
-M.buftype_not_nofile = function() return vim.bo.buftype ~= "nofile" end
+function M.buffer_is_readonly() return vim.bo.readonly end
 
-M.get_loading = function(speed)
+function M.buftype_is_nofile() return vim.bo.buftype == "nofile" end
+
+function M.get_loading(speed)
   local spinners = { "◜", "◠", "◝", "◞", "◡", "◟" }
   local index = 0
   local last_time = vim.uv.now()
@@ -48,7 +42,7 @@ M.get_loading = function(speed)
   return loading
 end
 
-M.get_hl = function(name)
+function M.get_hl(name)
   local hl = vim.api.nvim_get_hl(0, { name = name })
   return hl
 end

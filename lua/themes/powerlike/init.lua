@@ -1,6 +1,6 @@
 local M = {}
 
-local components = require("themes.vanilla.components")
+local components = require("themes.powerlike.components")
 
 local left = components.left
 local right = components.right
@@ -10,6 +10,7 @@ local statusline = {
   left = {
     separator.separator,
     left.mode,
+    separator.arrow_left,
     left.gitbranch,
     left.gitadd,
     left.gitchange,
@@ -38,6 +39,7 @@ local statusline = {
     right.fileindent,
     right.fileformat,
     right.lineratio,
+    separator.arrow_right,
     right.lineinfo,
     separator.separator,
   },
@@ -47,11 +49,13 @@ local specialline = {
   left = {
     separator.separator,
     left.mode,
+    separator.arrow_left,
   },
   mid = {},
   right = {
     right.date,
     right.time,
+    separator.arrow_right,
     separator.separator,
   },
 }
@@ -78,9 +82,9 @@ local handle_update = function(update)
 end
 
 M.config = {
-  highlights = highlights,
   statusline = statusline,
   specialline = specialline,
+  highlights = highlights,
   specialtypes = specialtypes,
   refresh = refresh,
   handle_update = handle_update,

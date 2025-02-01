@@ -1,6 +1,6 @@
 local M = {}
 
-local components = require("themes.vanilla.components")
+local components = require("themes.arc.components")
 
 local left = components.left
 local right = components.right
@@ -19,9 +19,11 @@ local statusline = {
     left.filename,
     left.filemark,
     left.lightbulb,
+    separator.aroundLeft,
   },
   mid = {},
   right = {
+    separator.aroundRight,
     right.search,
     right.spell,
     right.date,
@@ -47,9 +49,11 @@ local specialline = {
   left = {
     separator.separator,
     left.mode,
+    separator.aroundLeft,
   },
   mid = {},
   right = {
+    separator.aroundRight,
     right.date,
     right.time,
     separator.separator,
@@ -57,7 +61,7 @@ local specialline = {
 }
 
 local highlights = {
-  mid = { link = "StatusLine" },
+  mid = { fg = "NONE", bg = "NONE" },
 }
 
 local specialtypes = {
@@ -78,9 +82,9 @@ local handle_update = function(update)
 end
 
 M.config = {
-  highlights = highlights,
   statusline = statusline,
   specialline = specialline,
+  highlights = highlights,
   specialtypes = specialtypes,
   refresh = refresh,
   handle_update = handle_update,
