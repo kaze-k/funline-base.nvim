@@ -192,7 +192,7 @@ local codeium_icons = {
   on = "󱙺 ",
   off = "󱙻 ",
   none = "󱚠 ",
-  codeium = "󰘦",
+  codeium = "󰘦 ",
 }
 
 M.codeium = function(ctx)

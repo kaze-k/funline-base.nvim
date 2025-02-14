@@ -1,7 +1,7 @@
-local M = {}
-
 local lsp = vim.lsp
 local diagnostic = vim.diagnostic
+
+local M = {}
 
 local function get_current_buf_lsp(name)
   local bufnr = vim.api.nvim_get_current_buf()
