@@ -95,7 +95,7 @@ function M.get_lsp_pending(ignore_clients)
   for _, client in ipairs(clients) do
     for _, ignore in ipairs(ignore_clients) do
       if client.name ~= ignore then
-        if #client.progress.pending ~= 0 then
+        if vim.tbl_count(client.progress.pending) ~= 0 then
           return true
         end
       end
