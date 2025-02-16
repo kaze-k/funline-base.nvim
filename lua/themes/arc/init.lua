@@ -10,6 +10,7 @@ local statusline = {
   left = {
     separator.separator,
     left.mode,
+    left.macro,
     left.gitbranch,
     left.gitadd,
     left.gitchange,

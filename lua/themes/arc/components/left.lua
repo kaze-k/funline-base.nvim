@@ -90,6 +90,23 @@ M.mode = function()
   }
 end
 
+M.macro = function()
+  local recording = providers.get_reg_recording()
+  local executing = providers.get_reg_executing()
+
+  return {
+    condition = recording ~= "" or executing ~= "",
+    icon = "",
+    provider = recording ~= "" and recording or executing,
+    padding = padding,
+    hl = {
+      fg = executing ~= "" and colors.light_green or colors.light_red,
+      bg = utils.get_hl("StatusLine").bg,
+      bold = true,
+    },
+  }
+end
+
 M.gitbranch = function()
   return {
     condition = not utils.buffer_is_empty()
@@ -174,7 +191,7 @@ M.filename = function()
 end
 
 local icons = {
-  modified = "[+]",
+  modified = "",
   readonly = "",
   help = "󰋗",
 }

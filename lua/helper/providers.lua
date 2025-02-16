@@ -137,4 +137,8 @@ function M.spell_toString(str)
   end
 end
 
+function M.get_reg_executing() return vim.fn.reg_executing() end
+
+function M.get_reg_recording() return vim.fn.reg_recording() end
+
 return M
