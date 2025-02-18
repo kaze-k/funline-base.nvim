@@ -2,6 +2,7 @@ local providers = require("helper.providers")
 local utils = require("helper.utils")
 
 local colors = require("themes.arc.colors")
+local spinners = require("themes.arc.spinners")
 
 local M = {}
 
@@ -9,7 +10,7 @@ local padding = { left = " " }
 
 local interval = 100
 
-local loading = utils.get_loading(interval)
+local loading = utils.get_loading(interval, spinners)
 
 local search_icons = {
   default = "",

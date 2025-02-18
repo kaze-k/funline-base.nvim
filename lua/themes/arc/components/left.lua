@@ -1,3 +1,4 @@
+local handlers = require("handlers")
 local providers = require("helper.providers")
 local utils = require("helper.utils")
 
@@ -7,7 +8,7 @@ local M = {}
 
 local padding = { right = " " }
 
-local mode_icon = {
+local mode_icons = {
   ["n"] = "",
   ["niI"] = "",
   ["niR"] = "",
@@ -22,9 +23,9 @@ local mode_icon = {
   ["Vs"] = "",
   [""] = "",
   ["s"] = "",
+  [""] = "",
   ["s"] = "",
   ["S"] = "",
-  [""] = "",
   ["i"] = "󰛿",
   ["ic"] = "󰛿",
   ["ix"] = "󰛿",
@@ -44,63 +45,31 @@ local mode_icon = {
   ["null"] = "󰟢",
 }
 
-local mode = {
-  ["n"] = "NORMAL",
-  ["niI"] = "NORMAL",
-  ["niR"] = "NORMAL",
-  ["niV"] = "NORMAL",
-  ["no"] = "OP",
-  ["nov"] = "OP",
-  ["noV"] = "OP",
-  ["no"] = "OP",
-  ["v"] = "VISUAL",
-  ["vs"] = "VISUAL",
-  ["V"] = "LINES",
-  ["Vs"] = "LINES",
-  [""] = "BLOCK",
-  ["s"] = "BLOCK",
-  ["s"] = "SELECT",
-  ["S"] = "SELECT",
-  [""] = "BLOCK",
-  ["i"] = "INSERT",
-  ["ic"] = "INSERT",
-  ["ix"] = "INSERT",
-  ["R"] = "REPLACE",
-  ["Rc"] = "REPLACE",
-  ["Rv"] = "V-REPLACE",
-  ["Rx"] = "REPLACE",
-  ["c"] = "COMMAND",
-  ["cv"] = "COMMAND",
-  ["ce"] = "COMMAND",
-  ["r"] = "ENTER",
-  ["rm"] = "MORE",
-  ["r?"] = "CONFIRM",
-  ["!"] = "SHELL",
-  ["t"] = "TERM",
-  ["nt"] = "N-TERM",
-  ["null"] = "NONE",
-}
-
 M.mode = function()
   return {
-    icon = mode_icon[vim.fn.mode()],
-    provider = mode[vim.fn.mode()],
+    icon = handlers.mode.mode_icon(mode_icons),
+    provider = handlers.mode.vim_mode(),
     padding = padding,
-    hl = { fg = colors.mode_colors[vim.fn.mode()], bg = utils.get_hl("StatusLine").bg, bold = true, italic = true },
+    hl = {
+      fg = handlers.mode.mode_color(colors.mode_colors),
+      bg = utils.get_hl("StatusLine").bg,
+      bold = true,
+      italic = true,
+    },
   }
 end
 
 M.macro = function()
-  local recording = providers.get_reg_recording()
-  local executing = providers.get_reg_executing()
+  local recording = handlers.opt.get_reg_recording()
+  local executing = handlers.opt.get_reg_executing()
 
   return {
-    condition = recording ~= "" or executing ~= "",
+    condition = handlers.opt.is_macro(),
     icon = "",
     provider = recording ~= "" and recording or executing,
     padding = padding,
     hl = {
-      fg = executing ~= "" and colors.light_green or colors.light_red,
+      fg = recording ~= "" and colors.light_red or colors.light_green,
       bg = utils.get_hl("StatusLine").bg,
       bold = true,
     },
@@ -109,12 +78,9 @@ end
 
 M.gitbranch = function()
   return {
-    condition = not utils.buffer_is_empty()
-      and not utils.buftype_is_nofile()
-      and vim.b.gitsigns_status_dict ~= nil
-      and vim.b.gitsigns_status_dict.head ~= nil,
+    condition = handlers.git.is_git_dir(),
     icon = "",
-    provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.head or vim.b.gitsigns_head,
+    provider = utils.buftype_is_nofile() and handlers.git.get_global_git_branch() or handlers.git.get_buf_git_branch(),
     padding = padding,
     hl = { fg = colors.green, bg = utils.get_hl("StatusLine").bg },
   }
@@ -122,13 +88,9 @@ end
 
 M.gitadd = function()
   return {
-    condition = not utils.buffer_is_empty()
-      and not utils.buftype_is_nofile()
-      and vim.b.gitsigns_status_dict ~= nil
-      and vim.b.gitsigns_status_dict.added ~= nil
-      and vim.b.gitsigns_status_dict.added > 0,
+    condition = handlers.git.git_added_exists(),
     icon = "",
-    provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.added,
+    provider = handlers.git.git_added(),
     padding = padding,
     hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg },
   }
@@ -136,13 +98,9 @@ end
 
 M.gitchange = function()
   return {
-    condition = not utils.buffer_is_empty()
-      and not utils.buftype_is_nofile()
-      and vim.b.gitsigns_status_dict ~= nil
-      and vim.b.gitsigns_status_dict.changed ~= nil
-      and vim.b.gitsigns_status_dict.changed > 0,
+    condition = handlers.git.git_changed_exists(),
     icon = "",
-    provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.changed,
+    provider = handlers.git.git_changed(),
     padding = padding,
     hl = { fg = colors.orange, bg = utils.get_hl("StatusLine").bg },
   }
@@ -150,23 +108,21 @@ end
 
 M.gitremove = function()
   return {
-    condition = not utils.buffer_is_empty()
-      and not utils.buftype_is_nofile()
-      and vim.b.gitsigns_status_dict ~= nil
-      and vim.b.gitsigns_status_dict.removed ~= nil
-      and vim.b.gitsigns_status_dict.removed > 0,
+    condition = handlers.git.git_removed_exists(),
     icon = "",
-    provider = vim.b.gitsigns_status_dict and vim.b.gitsigns_status_dict.removed,
+    provider = handlers.git.git_removed(),
     padding = padding,
     hl = { fg = colors.red, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
 M.fileicon = function()
-  local icon, color = providers.get_icon_and_color()
+  local icon, color = handlers.file.get_file_icon_and_color()
 
   return {
-    condition = not utils.buffer_is_empty() and not utils.buftype_is_nofile() and vim.bo.buftype ~= "prompt",
+    condition = not utils.buffer_is_empty(handlers.file.get_file_extension())
+      and not utils.match_buftype("nofile")
+      and not utils.match_buftype("prompt"),
     icon = icon,
     padding = padding,
     hl = { fg = color, bg = utils.get_hl("StatusLine").bg },
@@ -183,7 +139,7 @@ M.filename = function()
   end
 
   return {
-    condition = not utils.buffer_is_empty() and not utils.buftype_is_nofile(),
+    condition = not utils.buffer_is_empty(handlers.file.get_file_extension()) and not utils.buftype_is_nofile(),
     provider = vim.fn.expand("%:t"),
     padding = padding,
     hl = hl,
@@ -210,7 +166,7 @@ M.filemark = function()
     hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg, bold = true }
   end
 
-  local condition = not utils.buffer_is_empty()
+  local condition = not utils.buffer_is_empty(handlers.file.get_file_extension())
     and (providers.filetype_is_help() or utils.buffer_is_readonly() or providers.buffer_is_modified())
 
   return {
