@@ -12,7 +12,7 @@ function M.get_search_count()
     maxcount = -1,
   })
 
-  return search_count.current, search_count.total
+  return search_count
 end
 
 function M.is_hlsearch() return v.hlsearch == 1 end

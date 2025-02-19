@@ -8,6 +8,7 @@ local M = {}
 local padding = { left = " " }
 
 local lsp_loading = utils.get_loading(100, spinners.arc)
+local nls_loading = utils.get_loading(100, spinners.arc)
 local codeium_loading = utils.get_loading(100, spinners.circle)
 
 M.search = function()
@@ -140,7 +141,7 @@ M.nlsstatus = function(ctx)
 
   return {
     condition = next(lsp_clients.ignore_lsp) ~= nil,
-    icon = pending and lsp_loading() or "",
+    icon = pending and nls_loading() or "",
     provider = "NLS",
     padding = padding,
     hl = { fg = colors.cyan, bg = utils.get_hl("StatusLine").bg },
@@ -190,7 +191,7 @@ M.codeium = function(ctx)
   return {
     condition = handlers.plugins.is_codeium_exists(),
     icon = tag == "LOADING" and codeium_loading() or icons[tag],
-    provider = (tag == "EMPTY" and "0/0") or (tag == "UNKNOWN" and status),
+    provider = (tag == "EMPTY" and "0/0") or (tag == "UNKNOWN" and status) or "",
     padding = padding,
     hl = { fg = colors.turquoise, bg = utils.get_hl("StatusLine").bg },
   }

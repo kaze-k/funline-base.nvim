@@ -6,8 +6,6 @@ local left = components.left
 local right = components.right
 local separator = components.separator
 
-local padding_right = { right = " " }
-
 local statusline = {
   left = {
     separator.separator,
@@ -17,10 +15,6 @@ local statusline = {
     left.gitadd,
     left.gitchange,
     left.gitremove,
-    -- git.gitbranch(padding_right),
-    -- git.gitadd(padding_right),
-    -- git.gitchange(padding_right),
-    -- git.gitremove(padding_right),
     left.session,
     left.fileicon,
     left.filename,
