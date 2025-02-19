@@ -121,7 +121,7 @@ M.lspstatus = function(ctx)
   end
 
   return {
-    condition = next(lsp_clients.lsp) ~= nil,
+    condition = handlers.lsp.is_lsp_attached(),
     icon = pending and lsp_loading() or (utils.is_widen_condition(140) and icons.widen or icons.normal),
     provider = utils.is_widen_condition(140) and provider_str or "LSP",
     padding = padding,
@@ -140,7 +140,7 @@ M.nlsstatus = function(ctx)
   end
 
   return {
-    condition = next(lsp_clients.ignore_lsp) ~= nil,
+    condition = handlers.lsp.is_lsp_attached("null-ls"),
     icon = pending and nls_loading() or "",
     provider = "NLS",
     padding = padding,
