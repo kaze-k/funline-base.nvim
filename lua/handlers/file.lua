@@ -49,16 +49,7 @@ function M.get_file_indent()
   end
 end
 
-function M.get_file_format()
-  local fileformat = bo.fileformat
-  if fileformat:upper() == "UNIX" then
-    return "LF"
-  elseif fileformat:upper() == "DOS" then
-    return "CRLF"
-  elseif fileformat:upper() == "MAC" then
-    return "CR"
-  end
-end
+function M.get_file_format() return bo.fileformat end
 
 function M.get_buf_current_line()
   local bufnr = api.nvim_get_current_buf()
