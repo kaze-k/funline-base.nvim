@@ -131,7 +131,7 @@ end
 
 M.nlsstatus = function(ctx)
   local lsp_clients = handlers.lsp.get_lsp_client_names_with_ignore({ "null-ls" })
-  local pending = handlers.lsp.is_lsp_progress_pending({ "null-ls" })
+  local pending = handlers.lsp.is_null_ls_progress_pending()
 
   if pending then
     ctx.refresh(100)
@@ -175,9 +175,9 @@ M.codeium = function(ctx)
   local icons = {
     ["ON"] = "󱙺 ",
     ["OFF"] = "󱙻 ",
-    ["EMPTY"] = "󱚠 ",
+    ["EMPTY"] = "󱚠",
     ["NONE"] = "󱚡 ",
-    ["UNKNOWN"] = "󰘦 ",
+    ["NORMAL"] = "󰘦",
   }
 
   local tag, status = handlers.plugins.get_codeium_status()
@@ -190,8 +190,8 @@ M.codeium = function(ctx)
 
   return {
     condition = handlers.plugins.is_codeium_exists(),
-    icon = tag == "LOADING" and codeium_loading() or icons[tag],
-    provider = (tag == "EMPTY" and "0/0") or (tag == "UNKNOWN" and status) or "",
+    icon = tag == "LOADING" and string.format("%s ", codeium_loading()) or icons[tag],
+    provider = status,
     padding = padding,
     hl = { fg = colors.turquoise, bg = utils.get_hl("StatusLine").bg },
   }

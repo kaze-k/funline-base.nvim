@@ -31,17 +31,17 @@ function M.get_codeium_status()
   if M.is_codeium_exists() then
     local status = vim.fn["codeium#GetStatusString"]()
     if status == string.match(status, "^%sON$") then
-      return "ON", status
+      return "ON", ""
     elseif status == "OFF" then
-      return "OFF", status
+      return "OFF", ""
     elseif status == string.match(status, "^%s%*%s$") then
-      return "LOADING", status
+      return "LOADING", ""
     elseif status == string.match(status, "^%s0%s$") then
-      return "EMPTY", status
+      return "EMPTY", "0/0"
     elseif status == string.match(status, "^%s%s%s$") then
-      return "NONE", status
+      return "NONE", ""
     else
-      return "UNKNOWN"
+      return "NORMAL", status
     end
   end
 end
