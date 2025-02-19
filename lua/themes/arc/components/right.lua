@@ -1,16 +1,11 @@
-local providers = require("helper.providers")
+local handlers = require("handlers")
 local utils = require("helper.utils")
-
-local colors = require("themes.arc.colors")
-local spinners = require("themes.arc.spinners")
+local colors = require("helper.colors")
+local spinners = require("helper.spinners")
 
 local M = {}
 
 local padding = { left = " " }
-
-local interval = 100
-
-local loading = utils.get_loading(interval, spinners)
 
 local search_icons = {
   default = "",
@@ -25,7 +20,7 @@ M.search = function()
     return {
       condition = search_count.total > 0,
       icon = search_icons[vim.fn.getcmdtype():sub(1, 1)] or search_icons.default,
-      provider = utils.widen_condition(140) and formated_str or search_term,
+      provider = utils.is_widen_condition(140) and formated_str or search_term,
       padding = padding,
       hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine").bg },
     }
@@ -38,7 +33,7 @@ M.spell = function()
   return {
     condition = vim.opt.spell:get(),
     icon = "󰓆",
-    provider = utils.widen_condition(140) and providers.spell_toString(spelllang),
+    provider = utils.is_widen_condition(140) and providers.spell_toString(spelllang),
     padding = padding,
     hl = { fg = colors.red, bg = utils.get_hl("StatusLine").bg },
   }
@@ -50,7 +45,7 @@ M.date = function()
   local date = os.date("%Y-%m-%d")
 
   return {
-    condition = utils.widen_condition(140),
+    condition = utils.is_widen_condition(140),
     icon = "",
     provider = date,
     padding = padding,
@@ -243,7 +238,7 @@ end
 
 M.fileindent = function()
   return {
-    condition = utils.widen_condition(140),
+    condition = utils.is_widen_condition(140),
     provider = string.format("SPC:%s", vim.bo.shiftwidth),
     padding = padding,
     hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg },
@@ -279,34 +274,28 @@ M.fileformat = function()
   }
 end
 
-local line_ratio_icons = {
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  top = "",
-  bottom = "",
-}
-
 M.lineratio = function()
-  local line_ratio = providers.get_line_ratio()
-  local icon = providers.col(
-    line_ratio_icons.top,
-    line_ratio_icons.bottom,
-    line_ratio_icons[math.ceil(line_ratio / #line_ratio_icons)]
-  )
-  local provider = providers.col("TOP", "BOT", string.format("%s%%", tostring(line_ratio)))
+  local icons = {
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    top = "",
+    bottom = "",
+  }
+
+  local line_ratio = handlers.file.get_line_ratio()
 
   return {
-    condition = utils.widen_condition(140),
-    icon = icon,
-    provider = provider,
+    condition = utils.is_widen_condition(140),
+    icon = handlers.file.get_position(icons.top, icons.bottom, icons[math.ceil(line_ratio / #icons)]),
+    provider = handlers.file.get_position("TOP", "BOT", string.format("%s%%", tostring(line_ratio))),
     padding = padding,
     hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg },
   }
@@ -315,7 +304,12 @@ end
 M.lineinfo = function()
   return {
     icon = "",
-    provider = string.format("%d:%d[%d]", vim.fn.col("."), vim.fn.line("."), vim.fn.line("$")),
+    provider = string.format(
+      "%d:%d[%d]",
+      handlers.file.get_current_col(),
+      handlers.file.get_current_line(),
+      handlers.file.get_total_line()
+    ),
     padding = padding,
     hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg, bold = true },
   }

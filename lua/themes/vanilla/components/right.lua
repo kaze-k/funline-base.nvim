@@ -24,7 +24,7 @@ M.search = function()
     return {
       condition = search_count.total > 0,
       icon = search_icons[vim.fn.getcmdtype():sub(1, 1)] or search_icons.default,
-      provider = utils.widen_condition(140) and formated_str or search_term,
+      provider = utils.is_widen_condition(140) and formated_str or search_term,
       padding = padding,
       hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine").bg },
     }
@@ -37,7 +37,7 @@ M.spell = function()
   return {
     condition = vim.opt.spell:get(),
     icon = "󰓆",
-    provider = utils.widen_condition(140) and providers.spell_toString(spelllang),
+    provider = utils.is_widen_condition(140) and providers.spell_toString(spelllang),
     padding = padding,
     hl = { fg = colors.red, bg = utils.get_hl("StatusLine").bg },
   }
@@ -49,7 +49,7 @@ M.date = function()
   local date = os.date("%Y-%m-%d")
 
   return {
-    condition = utils.widen_condition(140),
+    condition = utils.is_widen_condition(140),
     icon = "",
     provider = date,
     padding = padding,
@@ -242,7 +242,7 @@ end
 
 M.fileindent = function()
   return {
-    condition = utils.widen_condition(140),
+    condition = utils.is_widen_condition(140),
     provider = string.format("SPC:%s", vim.bo.shiftwidth),
     padding = padding,
     hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg },
@@ -303,7 +303,7 @@ M.lineratio = function()
   local provider = providers.col("TOP", "BOT", string.format("%s%%", tostring(line_ratio)))
 
   return {
-    condition = utils.widen_condition(140),
+    condition = utils.is_widen_condition(140),
     icon = icon,
     provider = provider,
     padding = padding,

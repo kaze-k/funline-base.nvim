@@ -92,8 +92,8 @@ end
 
 M.gitbranch = function()
   return {
-    condition = not utils.buffer_is_empty()
-      and not utils.buftype_is_nofile()
+    condition = not utils.is_buffer_empty()
+      and not utils.is_buftype_nofile()
       and vim.b.gitsigns_status_dict ~= nil
       and vim.b.gitsigns_status_dict.head ~= nil,
     icon = "",
@@ -105,8 +105,8 @@ end
 
 M.gitadd = function()
   return {
-    condition = not utils.buffer_is_empty()
-      and not utils.buftype_is_nofile()
+    condition = not utils.is_buffer_empty()
+      and not utils.is_buftype_nofile()
       and vim.b.gitsigns_status_dict ~= nil
       and vim.b.gitsigns_status_dict.added ~= nil
       and vim.b.gitsigns_status_dict.added > 0,
@@ -119,8 +119,8 @@ end
 
 M.gitchange = function()
   return {
-    condition = not utils.buffer_is_empty()
-      and not utils.buftype_is_nofile()
+    condition = not utils.is_buffer_empty()
+      and not utils.is_buftype_nofile()
       and vim.b.gitsigns_status_dict ~= nil
       and vim.b.gitsigns_status_dict.changed ~= nil
       and vim.b.gitsigns_status_dict.changed > 0,
@@ -133,8 +133,8 @@ end
 
 M.gitremove = function()
   return {
-    condition = not utils.buffer_is_empty()
-      and not utils.buftype_is_nofile()
+    condition = not utils.is_buffer_empty()
+      and not utils.is_buftype_nofile()
       and vim.b.gitsigns_status_dict ~= nil
       and vim.b.gitsigns_status_dict.removed ~= nil
       and vim.b.gitsigns_status_dict.removed > 0,
@@ -149,7 +149,7 @@ M.fileicon = function()
   local icon, color = providers.get_icon_and_color()
 
   return {
-    condition = not utils.buffer_is_empty() and not utils.buftype_is_nofile() and vim.bo.buftype ~= "prompt",
+    condition = not utils.is_buffer_empty() and not utils.is_buftype_nofile() and vim.bo.buftype ~= "prompt",
     icon = icon,
     padding = padding,
     hl = { fg = color, bg = utils.get_hl("StatusLine").bg },
@@ -166,7 +166,7 @@ M.filename = function()
   end
 
   return {
-    condition = not utils.buffer_is_empty() and not utils.buftype_is_nofile(),
+    condition = not utils.is_buffer_empty() and not utils.is_buftype_nofile(),
     provider = vim.fn.expand("%:t"),
     padding = padding,
     hl = hl,
@@ -193,7 +193,7 @@ M.filemark = function()
     hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg, bold = true }
   end
 
-  local condition = not utils.buffer_is_empty()
+  local condition = not utils.is_buffer_empty()
     and (providers.filetype_is_help() or utils.buffer_is_readonly() or providers.buffer_is_modified())
 
   return {

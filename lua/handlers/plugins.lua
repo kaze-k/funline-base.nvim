@@ -2,14 +2,14 @@ local plugins = require("lazy.core.config").plugins
 
 local M = {}
 
-local function plugin_exists(plugin)
+function M.is_plugin_exists(plugin)
   if plugins and plugins[plugin] and plugins[plugin]._.loaded then
     return true
   end
   return false
 end
 
-function M.lazy_exists()
+function M.is_lazy_exists()
   if package.loaded["lazy"] then
     return true
   end
@@ -18,19 +18,19 @@ end
 
 function M.get_lazy_updates() return require("lazy.status").updates() end
 
-function M.session_exists() return plugin_exists("possession.nvim") and M.get_session_name() end
+function M.is_session_exists() return M.is_plugin_exists("possession.nvim") and M.get_session_name() end
 
 function M.get_session_name() return require("possession.session").get_session_name() end
 
-function M.lightbulb_exists() return plugin_exists("nvim-lightbulb") and M.get_lightbulb() end
+function M.is_lightbulb_exists() return M.is_plugin_exists("nvim-lightbulb") and M.get_lightbulb() end
 
 function M.get_lightbulb_status() return require("nvim-lightbulb").get_status_text() end
 
-function M.autosave_exists() return plugin_exists("auto-save.nvim") end
+function M.is_autosave_exists() return M.is_plugin_exists("auto-save.nvim") end
 
 function M.get_autosave_status() return vim.g.loaded_auto_save end
 
-function M.codeium_exists() return plugin_exists("codeium.vim") end
+function M.is_codeium_exists() return M.is_plugin_exists("codeium.vim") end
 
 function M.get_codeium_status()
   local status = vim.fn["codeium#GetStatusString"]()

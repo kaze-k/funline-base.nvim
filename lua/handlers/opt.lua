@@ -17,9 +17,9 @@ end
 
 function M.is_hlsearch() return v.hlsearch == 1 end
 
-function M.has_spell() return opt.spell:get() end
+function M.is_spell() return opt.spell:get() end
 
-function M.spell()
+function M.get_spelllang()
   local spelllang = opt.spelllang:get()
 
   if type(spelllang) == "table" then
@@ -40,5 +40,9 @@ function M.get_reg_executing() return fn.reg_executing() end
 function M.get_reg_recording() return fn.reg_recording() end
 
 function M.is_macro() return M.get_reg_recording() ~= "" or M.get_reg_recording() ~= "" end
+
+function M.get_macro() return M.get_reg_recording() ~= "" and M.get_reg_recording() or M.get_reg_executing() end
+
+function M.get_macro_color(recording, executing) return M.get_reg_recording() ~= "" and recording or executing end
 
 return M

@@ -1,75 +1,33 @@
 local handlers = require("handlers")
-local providers = require("helper.providers")
 local utils = require("helper.utils")
-
-local colors = require("themes.arc.colors")
+local mode_icons = require("helper.mode_icons")
+local colors = require("helper.colors")
 
 local M = {}
 
 local padding = { right = " " }
 
-local mode_icons = {
-  ["n"] = "",
-  ["niI"] = "",
-  ["niR"] = "",
-  ["niV"] = "",
-  ["no"] = "",
-  ["nov"] = "",
-  ["noV"] = "",
-  ["no"] = "",
-  ["v"] = "",
-  ["vs"] = "",
-  ["V"] = "",
-  ["Vs"] = "",
-  [""] = "",
-  ["s"] = "",
-  [""] = "",
-  ["s"] = "",
-  ["S"] = "",
-  ["i"] = "󰛿",
-  ["ic"] = "󰛿",
-  ["ix"] = "󰛿",
-  ["R"] = "󰬲",
-  ["Rc"] = "󰬲",
-  ["Rv"] = "󰬲",
-  ["Rx"] = "󰬲",
-  ["c"] = "󰊠",
-  ["cv"] = "󰊠",
-  ["ce"] = "󰊠",
-  ["r"] = "",
-  ["rm"] = "",
-  ["r?"] = "",
-  ["!"] = "",
-  ["t"] = "",
-  ["nt"] = "",
-  ["null"] = "󰟢",
-}
-
 M.mode = function()
   return {
-    icon = handlers.mode.mode_icon(mode_icons),
-    provider = handlers.mode.vim_mode(),
+    icon = handlers.mode.get_mode_icon(mode_icons),
+    provider = handlers.mode.get_vim_mode(),
     padding = padding,
     hl = {
-      fg = handlers.mode.mode_color(colors.mode_colors),
+      fg = handlers.mode.get_mode_color(colors.mode_colors),
       bg = utils.get_hl("StatusLine").bg,
       bold = true,
-      italic = true,
     },
   }
 end
 
 M.macro = function()
-  local recording = handlers.opt.get_reg_recording()
-  local executing = handlers.opt.get_reg_executing()
-
   return {
     condition = handlers.opt.is_macro(),
     icon = "",
-    provider = recording ~= "" and recording or executing,
+    provider = handlers.opt.get_macro(),
     padding = padding,
     hl = {
-      fg = recording ~= "" and colors.light_red or colors.light_green,
+      fg = handlers.opt.get_macro_color(colors.light_red, colors.light_green),
       bg = utils.get_hl("StatusLine").bg,
       bold = true,
     },
@@ -80,7 +38,7 @@ M.gitbranch = function()
   return {
     condition = handlers.git.is_git_dir(),
     icon = "",
-    provider = utils.buftype_is_nofile() and handlers.git.get_global_git_branch() or handlers.git.get_buf_git_branch(),
+    provider = utils.is_buftype_nofile() and handlers.git.get_global_git_branch() or handlers.git.get_buf_git_branch(),
     padding = padding,
     hl = { fg = colors.green, bg = utils.get_hl("StatusLine").bg },
   }
@@ -88,9 +46,9 @@ end
 
 M.gitadd = function()
   return {
-    condition = handlers.git.git_added_exists(),
+    condition = handlers.git.is_git_added_exists(),
     icon = "",
-    provider = handlers.git.git_added(),
+    provider = handlers.git.get_git_added(),
     padding = padding,
     hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg },
   }
@@ -98,9 +56,9 @@ end
 
 M.gitchange = function()
   return {
-    condition = handlers.git.git_changed_exists(),
+    condition = handlers.git.is_git_changed_exists(),
     icon = "",
-    provider = handlers.git.git_changed(),
+    provider = handlers.git.get_git_changed(),
     padding = padding,
     hl = { fg = colors.orange, bg = utils.get_hl("StatusLine").bg },
   }
@@ -108,9 +66,9 @@ end
 
 M.gitremove = function()
   return {
-    condition = handlers.git.git_removed_exists(),
+    condition = handlers.git.is_git_removed_exists(),
     icon = "",
-    provider = handlers.git.git_removed(),
+    provider = handlers.git.get_git_removed(),
     padding = padding,
     hl = { fg = colors.red, bg = utils.get_hl("StatusLine").bg },
   }
@@ -120,9 +78,7 @@ M.fileicon = function()
   local icon, color = handlers.file.get_file_icon_and_color()
 
   return {
-    condition = not utils.buffer_is_empty(handlers.file.get_file_extension())
-      and not utils.match_buftype("nofile")
-      and not utils.match_buftype("prompt"),
+    condition = handlers.file.is_file_icon_exists(),
     icon = icon,
     padding = padding,
     hl = { fg = color, bg = utils.get_hl("StatusLine").bg },
@@ -130,80 +86,61 @@ M.fileicon = function()
 end
 
 M.filename = function()
-  local hl = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg }
-  if utils.buffer_is_readonly() and not providers.filetype_is_help() then
-    hl = { fg = colors.light_red, bg = utils.get_hl("StatusLine").bg, bold = true }
-  end
-  if providers.buffer_is_modified() then
-    hl = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg, bold = true, italic = true }
-  end
+  local hls = {
+    normal = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg },
+    readonly = { fg = colors.light_red, bg = utils.get_hl("StatusLine").bg, bold = true },
+    modified = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg, bold = true, italic = true },
+  }
+
+  local file_status = handlers.file.get_file_status()
 
   return {
-    condition = not utils.buffer_is_empty(handlers.file.get_file_extension()) and not utils.buftype_is_nofile(),
-    provider = vim.fn.expand("%:t"),
+    condition = handlers.file.is_filname_exists(),
+    provider = handlers.file.get_filename(),
     padding = padding,
-    hl = hl,
+    hl = file_status[hls],
   }
 end
 
-local icons = {
-  modified = "",
-  readonly = "",
-  help = "󰋗",
-}
-
 M.filemark = function()
-  local icon
-  local hl = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg, bold = true }
-  if vim.bo.filetype == "help" then
-    icon = icons.help
-    hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine").bg, bold = true }
-  elseif utils.buffer_is_readonly() and not providers.filetype_is_help() then
-    icon = icons.readonly
-    hl = { fg = colors.light_red, bg = utils.get_hl("StatusLine").bg, bold = true }
-  elseif providers.buffer_is_modified() then
-    icon = icons.modified
-    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg, bold = true }
-  end
+  local hls = {
+    normal = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg, bold = true },
+    help = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine").bg, bold = true },
+    readonly = { fg = colors.light_red, bg = utils.get_hl("StatusLine").bg, bold = true },
+    modified = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg, bold = true },
+  }
 
-  local condition = not utils.buffer_is_empty(handlers.file.get_file_extension())
-    and (providers.filetype_is_help() or utils.buffer_is_readonly() or providers.buffer_is_modified())
+  local icons = {
+    normal = "",
+    help = "󰋗",
+    readonly = "",
+    modified = "",
+  }
+
+  local file_status = handlers.file.get_file_status()
 
   return {
-    condition = condition,
-    icon = icon,
+    condition = utils.is_buffer_empty() and handlers.file.is_file_status(),
+    icon = file_status[icons],
     padding = padding,
-    hl = hl,
+    hl = file_status[hls],
   }
 end
 
 M.session = function()
-  local plugins = require("lazy.core.config").plugins
-  local possession_ok, possession = pcall(require, "possession.session")
-
-  local session_name = possession_ok and possession.get_session_name()
-  local condition = plugins
-    and plugins["possession.nvim"]
-    and plugins["possession.nvim"]._.loaded
-    and possession_ok
-    and possession.get_session_name() ~= nil
-
   return {
-    condition = condition,
+    condition = handlers.plugins.is_session_exists(),
     icon = "",
-    provider = session_name,
+    provider = handlers.plugins.get_session_name(),
     padding = padding,
     hl = { fg = colors.blue, bg = utils.get_hl("StatusLine").bg },
   }
 end
 
 M.lightbulb = function()
-  local plugins = require("lazy.core.config").plugins
-  local nvim_lightbulb_ok, nvim_lightbulb = pcall(require, "nvim-lightbulb")
-
   return {
-    condition = plugins and plugins["nvim-lightbulb"] and plugins["nvim-lightbulb"]._.loaded and nvim_lightbulb_ok,
-    provider = nvim_lightbulb_ok and nvim_lightbulb.get_status_text(),
+    condition = handlers.plugins.is_lightbulb_exists(),
+    icon = handlers.plugins.get_lightbulb_status(),
     padding = padding,
     hl = { fg = colors.blue, bg = utils.get_hl("StatusLine").bg },
   }

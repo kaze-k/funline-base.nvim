@@ -39,10 +39,10 @@ local mode_alias = {
   ["null"] = "NONE",
 }
 
-function M.mode_icon(icons) return icons[api.nvim_get_mode().mode] end
+function M.get_mode_icon(icons) return icons[api.nvim_get_mode().mode] end
 
-function M.mode_color(colors) return colors[api.nvim_get_mode().mode] end
+function M.get_mode_color(colors) return colors[api.nvim_get_mode().mode] end
 
-function M.vim_mode() return mode_alias[api.nvim_get_mode().mode] end
+function M.get_vim_mode() return mode_alias[api.nvim_get_mode().mode] end
 
 return M

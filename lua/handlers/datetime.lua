@@ -6,8 +6,8 @@ function M.get_time_icon(icons)
   return icon
 end
 
-function M.date() return os.date("%Y-%m-%d") end
+function M.get_date() return os.date("%Y-%m-%d") end
 
-function M.time() return os.date("%H:%M:%S") end
+function M.get_time() return os.date("%H:%M:%S") end
 
 return M
