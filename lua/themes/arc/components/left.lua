@@ -99,7 +99,7 @@ M.filename = function()
     condition = handlers.file.is_filname_exists(),
     provider = handlers.file.get_filename(),
     padding = padding,
-    hl = file_status[hls],
+    hl = hls[file_status],
   }
 end
 
@@ -112,7 +112,6 @@ M.filemark = function()
   }
 
   local icons = {
-    normal = "",
     help = "󰋗",
     readonly = "",
     modified = "",
@@ -121,10 +120,10 @@ M.filemark = function()
   local file_status = handlers.file.get_file_status()
 
   return {
-    condition = utils.is_buffer_empty() and handlers.file.is_file_status(),
-    icon = file_status[icons],
+    condition = handlers.file.is_file_status(),
+    icon = icons[file_status],
     padding = padding,
-    hl = file_status[hls],
+    hl = hls[file_status],
   }
 end
 
