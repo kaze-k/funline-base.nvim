@@ -9,7 +9,7 @@ function M.is_plugin_exists(plugin)
   return false
 end
 
-function M.is_lazy_exists() return package.loaded["lazy"] and require("lazy.status").has_updates() ~= nil end
+function M.is_lazy_exists() return package.loaded["lazy"] and require("lazy.status").has_updates() end
 
 function M.get_lazy_updates() return require("lazy.status").updates() end
 
