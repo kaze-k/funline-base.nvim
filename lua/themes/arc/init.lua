@@ -8,7 +8,7 @@ local separator = components.separator
 
 local statusline = {
   left = {
-    separator.separator,
+    separator.aroundRight,
     left.mode,
     left.macro,
     left.gitbranch,
@@ -42,13 +42,13 @@ local statusline = {
     right.fileformat,
     right.lineratio,
     right.lineinfo,
-    separator.separator,
+    separator.aroundLeft,
   },
 }
 
 local specialline = {
   left = {
-    separator.separator,
+    separator.aroundRight,
     left.mode,
     separator.aroundLeft,
   },
@@ -57,7 +57,7 @@ local specialline = {
     separator.aroundRight,
     right.date,
     right.time,
-    separator.separator,
+    separator.aroundLeft,
   },
 }
 

@@ -18,14 +18,14 @@ function M.get_diagnostics_count(severity)
   }))
 end
 
-function M.diagnostics_exist(severity) return M.get_diagnostics_count(severity) > 0 end
+function M.is_diagnostics_exist(severity) return M.get_diagnostics_count(severity) > 0 end
 
 function M.is_lsp_attached(name)
   local clients = get_current_buf_lsp(name)
   return next(clients) ~= nil
 end
 
-function M.lsp_client_names()
+function M.get_lsp_client_names()
   local client_names = {}
 
   local clients = get_current_buf_lsp()
@@ -37,9 +37,9 @@ function M.lsp_client_names()
   return client_names
 end
 
-function M.get_lsp_client_count() return vim.tbl_count(M.lsp_client_names()) end
+function M.get_lsp_client_count() return vim.tbl_count(M.get_lsp_client_names()) end
 
-function M.lsp_client_names_with_ignore(ignore_clients)
+function M.get_lsp_client_names_with_ignore(ignore_clients)
   local all_lsp_client_names = {}
   local lsp_client_names = {}
   local ignore_lsp_client_names = {}
@@ -72,7 +72,7 @@ function M.lsp_client_names_with_ignore(ignore_clients)
 end
 
 function M.get_lsp_client_count_with_ignore(ignore_clients)
-  local lsp_client_names = M.lsp_client_names_with_ignore(ignore_clients)
+  local lsp_client_names = M.get_lsp_client_names_with_ignore(ignore_clients)
   return vim.tbl_count(lsp_client_names.lsp)
 end
 
@@ -85,7 +85,7 @@ function M.is_lsp_progress_pending(ignore_clients)
 
   for _, client in ipairs(clients) do
     for _, ignore_client in ipairs(ignore_clients) do
-      if client.name ~= ignore_client and #client.progress.pending ~= 0 then
+      if client.name ~= ignore_client and vim.tbl_count(client.progress.pending) ~= 0 then
         return true
       end
     end
@@ -102,7 +102,7 @@ function M.is_null_ls_progress_pending()
   end
 
   for _, client in ipairs(clients) do
-    if #client.progress.pending ~= 0 then
+    if vim.tbl_count(client.progress.pending) ~= 0 then
       return true
     end
   end
