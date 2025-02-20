@@ -5,7 +5,7 @@ local spinners = require("helper.spinners")
 
 local M = {}
 
-local padding = { left = " " }
+local padding = { right = " " }
 
 local lsp_loading = utils.get_loading(100, spinners.arc)
 local nls_loading = utils.get_loading(100, spinners.arc)
@@ -264,7 +264,6 @@ M.lineinfo = function()
       handlers.file.get_current_line(),
       handlers.file.get_total_line()
     ),
-    padding = padding,
     hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg, bold = true },
   }
 end

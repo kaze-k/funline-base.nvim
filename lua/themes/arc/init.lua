@@ -5,6 +5,7 @@ local components = require("themes.arc.components")
 local left = components.left
 local right = components.right
 local separator = components.separator
+local special = components.special
 
 local statusline = {
   left = {
@@ -49,14 +50,14 @@ local statusline = {
 local specialline = {
   left = {
     separator.aroundRight,
-    left.mode,
+    special.left.mode,
     separator.aroundLeft,
   },
   mid = {},
   right = {
     separator.aroundRight,
-    right.date,
-    right.time,
+    special.right.date,
+    special.right.time,
     separator.aroundLeft,
   },
 }

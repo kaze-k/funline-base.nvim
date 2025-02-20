@@ -5,13 +5,12 @@ local colors = require("helper.colors")
 
 local M = {}
 
-local padding = { right = " " }
+local padding = { left = " " }
 
 M.mode = function()
   return {
     icon = handlers.mode.get_mode_icon(mode_icons),
     provider = handlers.mode.get_vim_mode(),
-    padding = padding,
     hl = {
       fg = handlers.mode.get_mode_color(colors.mode_colors),
       bg = utils.get_hl("StatusLine").bg,
