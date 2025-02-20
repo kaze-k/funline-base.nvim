@@ -130,7 +130,6 @@ M.lspstatus = function(ctx)
 end
 
 M.nlsstatus = function(ctx)
-  local lsp_clients = handlers.lsp.get_lsp_client_names_with_ignore({ "null-ls" })
   local pending = handlers.lsp.is_null_ls_progress_pending()
 
   if pending then

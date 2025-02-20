@@ -1,7 +1,7 @@
 local api = vim.api
+local o = vim.o
 local bo = vim.bo
 local fn = vim.fn
-local o = vim.o
 local uv = vim.uv
 
 local M = {}
