@@ -43,27 +43,6 @@ M.spell = function()
   }
 end
 
-M.date = function()
-  return {
-    condition = utils.is_widen_condition(140),
-    icon = "",
-    provider = handlers.datetime.get_date(),
-    padding = padding,
-    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine").bg },
-  }
-end
-
-M.time = function()
-  local icons = { "", "", "", "", "", "", "", "", "", "", "", "" }
-
-  return {
-    icon = handlers.datetime.get_time_icon(icons),
-    provider = handlers.datetime.get_time(),
-    padding = padding,
-    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine").bg },
-  }
-end
-
 M.diagnosticError = function()
   return {
     condition = handlers.lsp.is_diagnostics_exist("ERROR"),

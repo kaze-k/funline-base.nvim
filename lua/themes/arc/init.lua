@@ -3,6 +3,7 @@ local M = {}
 local components = require("themes.arc.components")
 
 local left = components.left
+local mid = components.mid
 local right = components.right
 local separator = components.separator
 local special = components.special
@@ -23,13 +24,16 @@ local statusline = {
     left.lightbulb,
     separator.aroundLeft,
   },
-  mid = {},
+  mid = {
+    separator.aroundRight,
+    mid.date,
+    mid.time,
+    separator.aroundLeft,
+  },
   right = {
     separator.aroundRight,
     right.search,
     right.spell,
-    right.date,
-    right.time,
     right.diagnosticError,
     right.diagnosticWarn,
     right.diagnosticHint,
