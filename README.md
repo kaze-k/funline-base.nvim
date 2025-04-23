@@ -10,7 +10,7 @@ This is a personal project based on [funline.nvim](https://github.com/kaze-k/fun
 - [possession](https://github.com/jedrzejboczar/possession.nvim)
 - [nvim-lightbulb](https://github.com/kosayoda/nvim-lightbulb)
 - [auto-save.nvim](https://github.com/okuuva/auto-save.nvim)
-- [codeium.vim](https://github.com/Exafunction/codeium.vim)
+- [windsurf.vim](https://github.com/Exafunction/windsurf.vim)
 
 ## Installation
 
@@ -24,7 +24,7 @@ You can install it, but I recommend fork.
     "jedrzejboczar/possession.nvim",
     "nvim-lightbulb",
     "auto-save.nvim",
-    "codeium.vim",
+    "windsurf.vim",
   },
   config = function()
     require("funline-base").setup()

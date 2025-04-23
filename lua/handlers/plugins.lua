@@ -25,10 +25,10 @@ function M.is_autosave_exists() return M.is_plugin_exists("auto-save.nvim") end
 
 function M.get_autosave_status() return vim.g.loaded_auto_save end
 
-function M.is_codeium_exists() return M.is_plugin_exists("codeium.vim") end
+function M.is_windsurf_exists() return M.is_plugin_exists("windsurf.vim") end
 
-function M.get_codeium_status()
-  if M.is_codeium_exists() then
+function M.get_windsurf_status()
+  if M.is_windsurf_exists() then
     local status = vim.fn["codeium#GetStatusString"]()
     if status == string.match(status, "^%sON$") then
       return "ON", ""

@@ -9,7 +9,7 @@ local padding = { left = " " }
 
 local lsp_loading = utils.get_loading(100, spinners.arc)
 local nls_loading = utils.get_loading(100, spinners.arc)
-local codeium_loading = utils.get_loading(100, spinners.circle)
+local windsurf_loading = utils.get_loading(100, spinners.circle)
 
 M.search = function()
   local icons = {
@@ -170,7 +170,7 @@ M.lazystatus = function()
   }
 end
 
-M.codeium = function(ctx)
+M.windsurf = function(ctx)
   local icons = {
     ["ON"] = "󱙺 ",
     ["OFF"] = "󱙻 ",
@@ -179,7 +179,7 @@ M.codeium = function(ctx)
     ["NORMAL"] = "󰘦",
   }
 
-  local tag, status = handlers.plugins.get_codeium_status()
+  local tag, status = handlers.plugins.get_windsurf_status()
 
   if tag == "LOADING" then
     ctx.refresh(100)
@@ -188,8 +188,8 @@ M.codeium = function(ctx)
   end
 
   return {
-    condition = handlers.plugins.is_codeium_exists(),
-    icon = tag == "LOADING" and string.format("%s ", codeium_loading()) or icons[tag],
+    condition = handlers.plugins.is_windsurf_exists(),
+    icon = tag == "LOADING" and string.format("%s ", windsurf_loading()) or icons[tag],
     provider = status,
     padding = padding,
     hl = { fg = colors.turquoise, bg = utils.get_hl("StatusLine").bg },

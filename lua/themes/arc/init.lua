@@ -41,7 +41,7 @@ local statusline = {
     right.lspstatus,
     right.nlsstatus,
     right.autosave,
-    right.codeium,
+    right.windsurf,
     right.lazystatus,
     right.fileindent,
     right.fileformat,
