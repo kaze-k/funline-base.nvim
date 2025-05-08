@@ -13,7 +13,7 @@ local function git_diff(type)
   return 0
 end
 
-function M.is_git_dir() return b.gitsigns_status_dict and b.gitsigns_status_dict.head ~= "" end
+function M.is_git_dir() return b.gitsigns_status_dict ~= nil and b.gitsigns_status_dict.head ~= "" end
 
 function M.get_buf_git_branch() return b.gitsigns_head or "" end
 
