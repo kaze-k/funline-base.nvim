@@ -39,7 +39,6 @@ M.gitbranch = function()
     icon = "",
     provider = utils.is_match_buftype("nofile") and handlers.git.get_global_git_branch()
       or handlers.git.get_buf_git_branch(),
-    padding = padding,
     hl = { fg = colors.green, bg = utils.get_hl("StatusLine").bg },
   }
 end
@@ -80,7 +79,6 @@ M.fileicon = function()
   return {
     condition = handlers.file.is_file_icon_exists(),
     icon = icon,
-    padding = padding,
     hl = { fg = color, bg = utils.get_hl("StatusLine").bg },
   }
 end

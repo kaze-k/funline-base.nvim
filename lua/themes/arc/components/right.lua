@@ -200,8 +200,8 @@ M.fileformat = function()
   local file_format = handlers.file.get_file_format()
 
   return {
-    icon = file_format[icons],
-    provider = file_format[providers],
+    icon = icons[file_format],
+    provider = providers[file_format],
     padding = padding,
     hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg },
   }
