@@ -6,13 +6,12 @@ local utils = require("helper.utils")
 
 local M = {}
 
-function M.is_filname_exists() return not utils.is_buffer_empty() and not utils.is_match_buftype("nofile") end
+function M.is_filname_exists() return not utils.is_match_buftype("nofile") end
 
 function M.get_filename() return fn.expand("%:t") end
 
 function M.is_file_status()
-  return not utils.is_buffer_empty()
-    and (utils.filetype_is_help() or utils.is_buffer_readonly() or utils.is_buffer_modified())
+  return (utils.filetype_is_help() or utils.is_buffer_readonly() or utils.is_buffer_modified())
 end
 
 function M.get_file_status()
@@ -29,9 +28,7 @@ end
 
 function M.get_file_extension() return fn.expand("%:e") end
 
-function M.is_file_icon_exists()
-  return not utils.is_buffer_empty() and not utils.is_match_buftype("nofile") and not utils.is_match_buftype("prompt")
-end
+function M.is_file_icon_exists() return not utils.is_match_buftype("nofile") and not utils.is_match_buftype("prompt") end
 
 function M.get_file_icon_and_color()
   local filename = M.get_filename()

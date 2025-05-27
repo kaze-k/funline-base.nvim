@@ -19,8 +19,6 @@ function M.is_widen_condition(widen_width)
   return false
 end
 
-function M.is_buffer_empty() return fn.empty(fn.expand("%:e")) == 1 end
-
 function M.is_buffer_readonly() return bo.readonly end
 
 function M.is_buffer_modified() return bo.modifiable and bo.modified end
