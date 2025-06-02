@@ -117,7 +117,7 @@ M.filemark = function()
   local file_status = handlers.file.get_file_status()
 
   return {
-    condition = handlers.file.is_file_status(),
+    condition = handlers.file.is_filname_exists() and handlers.file.is_file_status(),
     icon = icons[file_status],
     padding = padding,
     hl = hls[file_status],

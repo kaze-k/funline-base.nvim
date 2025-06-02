@@ -38,6 +38,7 @@ local statusline = {
     right.windsurf,
     right.lazystatus,
     right.fileindent,
+    right.filetype,
     right.fileformat,
     right.lineratio,
     right.lineinfo,

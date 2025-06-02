@@ -39,6 +39,7 @@ local statusline = {
     right.windsurf,
     right.lazystatus,
     right.fileindent,
+    right.filetype,
     right.fileformat,
     right.lineratio,
     separator.arrow_right,

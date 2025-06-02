@@ -205,6 +205,16 @@ M.fileindent = function()
   }
 end
 
+M.filetype = function()
+  return {
+    icon = "󱑼",
+    condition = utils.is_widen_condition(140),
+    provider = handlers.file.get_filetype(),
+    padding = padding,
+    hl = { fg = colors.green, bg = utils.get_hl("StatusLine").bg },
+  }
+end
+
 M.fileformat = function()
   local icons = {
     unix = "",
