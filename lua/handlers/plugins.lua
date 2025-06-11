@@ -1,4 +1,8 @@
-local plugins = require("lazy.core.config").plugins
+local ok, lazy_config = pcall(require, "lazy.core.config")
+local plugins
+if ok then
+  plugins = lazy_config.plugins
+end
 
 local M = {}
 
@@ -11,15 +15,30 @@ end
 
 function M.is_lazy_exists() return package.loaded["lazy"] and require("lazy.status").has_updates() end
 
-function M.get_lazy_updates() return require("lazy.status").updates() end
+function M.get_lazy_updates()
+  local status, lazy_status = pcall(require, "lazy.status")
+  if status then
+    return lazy_status.updates()
+  end
+end
 
 function M.is_session_exists() return M.is_plugin_exists("possession.nvim") and M.get_session_name() ~= nil end
 
-function M.get_session_name() return require("possession.session").get_session_name() end
+function M.get_session_name()
+  local status, session = pcall(require, "possession.session")
+  if status then
+    return session.get_session_name()
+  end
+end
 
 function M.is_lightbulb_exists() return M.is_plugin_exists("nvim-lightbulb") and M.get_lightbulb_status() ~= nil end
 
-function M.get_lightbulb_status() return require("nvim-lightbulb").get_status_text() end
+function M.get_lightbulb_status()
+  local status, lightbulb = pcall(require, "nvim-lightbulb")
+  if status then
+    return lightbulb.get_status_text()
+  end
+end
 
 function M.is_autosave_exists() return M.is_plugin_exists("auto-save.nvim") end
 
