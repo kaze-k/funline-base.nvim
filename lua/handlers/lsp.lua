@@ -22,6 +22,11 @@ function M.is_diagnostics_exist(severity) return M.get_diagnostics_count(severit
 
 function M.is_lsp_attached(name)
   local clients = get_current_buf_lsp(name)
+
+  if name == nil and #clients == 1 and clients[1].config and clients[1].config.name == "null-ls" then
+    return false
+  end
+
   return next(clients) ~= nil
 end
 
