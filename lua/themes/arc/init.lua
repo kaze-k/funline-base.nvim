@@ -1,5 +1,7 @@
 local M = {}
 
+local utils = require("helper.utils")
+
 local components = require("themes.arc.components")
 
 local left = components.left
@@ -72,7 +74,7 @@ local specialline = {
 }
 
 local highlights = {
-  mid = { fg = "NONE", bg = "NONE" },
+  mid = function() return { fg = "NONE", bg = utils.get_hl("Normal").bg } end,
 }
 
 local specialtypes = {
