@@ -186,7 +186,7 @@ end
 
 M.filetype = function()
   return {
-    icon = "󱑼",
+    icon = "",
     condition = utils.is_widen_condition(140),
     provider = handlers.file.get_filetype(),
     padding = padding,
