@@ -13,7 +13,7 @@ M.mode = function()
     provider = handlers.mode.get_vim_mode(),
     hl = {
       fg = handlers.mode.get_mode_color(colors.mode_colors),
-      bg = utils.get_hl("StatusLine").bg,
+      bg = utils.get_hl("StatusLineNC").bg,
       bold = true,
     },
   }
@@ -27,7 +27,7 @@ M.macro = function()
     padding = padding,
     hl = {
       fg = handlers.opt.get_macro_color(colors.light_red, colors.light_green),
-      bg = utils.get_hl("StatusLine").bg,
+      bg = utils.get_hl("StatusLineNC").bg,
       bold = true,
     },
   }
@@ -39,7 +39,7 @@ M.gitbranch = function()
     icon = "",
     provider = utils.is_match_buftype("nofile") and handlers.git.get_global_git_branch()
       or handlers.git.get_buf_git_branch(),
-    hl = { fg = colors.green, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.green, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -49,7 +49,7 @@ M.gitadd = function()
     icon = "",
     provider = handlers.git.get_git_added(),
     padding = padding,
-    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -59,7 +59,7 @@ M.gitchange = function()
     icon = "",
     provider = handlers.git.get_git_changed(),
     padding = padding,
-    hl = { fg = colors.orange, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.orange, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -69,7 +69,7 @@ M.gitremove = function()
     icon = "",
     provider = handlers.git.get_git_removed(),
     padding = padding,
-    hl = { fg = colors.red, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.red, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -79,15 +79,20 @@ M.fileicon = function()
   return {
     condition = handlers.file.is_file_icon_exists(),
     icon = icon,
-    hl = { fg = color, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = color, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
 M.filename = function()
   local hls = {
-    normal = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg },
-    readonly = { fg = colors.light_red, bg = utils.get_hl("StatusLine").bg, bold = true },
-    modified = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg, bold = true, italic = true },
+    normal = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLineNC").bg },
+    readonly = { fg = colors.light_red, bg = utils.get_hl("StatusLineNC").bg, bold = true },
+    modified = {
+      fg = utils.get_hl("StatusLine").fg,
+      bg = utils.get_hl("StatusLineNC").bg,
+      bold = true,
+      italic = true,
+    },
   }
 
   local file_status = handlers.file.get_file_status()
@@ -102,10 +107,10 @@ end
 
 M.filemark = function()
   local hls = {
-    normal = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLine").bg, bold = true },
-    help = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine").bg, bold = true },
-    readonly = { fg = colors.light_red, bg = utils.get_hl("StatusLine").bg, bold = true },
-    modified = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg, bold = true },
+    normal = { fg = utils.get_hl("StatusLine").fg, bg = utils.get_hl("StatusLineNC").bg, bold = true },
+    help = { fg = colors.light_yellow, bg = utils.get_hl("StatusLineNC").bg, bold = true },
+    readonly = { fg = colors.light_red, bg = utils.get_hl("StatusLineNC").bg, bold = true },
+    modified = { fg = colors.light_green, bg = utils.get_hl("StatusLineNC").bg, bold = true },
   }
 
   local icons = {
@@ -130,7 +135,7 @@ M.session = function()
     icon = "",
     provider = handlers.plugins.get_session_name(),
     padding = padding,
-    hl = { fg = colors.blue, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.blue, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -139,7 +144,7 @@ M.lightbulb = function()
     condition = handlers.plugins.is_lightbulb_exists(),
     icon = handlers.plugins.get_lightbulb_status(),
     padding = padding,
-    hl = { fg = colors.blue, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.blue, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 

@@ -14,7 +14,7 @@ M.left.mode = function()
     provider = handlers.mode.get_vim_mode(),
     hl = {
       fg = handlers.mode.get_mode_color(colors.mode_colors),
-      bg = utils.get_hl("StatusLine").bg,
+      bg = utils.get_hl("StatusLineNC").bg,
       bold = true,
     },
   }
@@ -26,7 +26,7 @@ M.right.date = function()
     icon = "",
     provider = handlers.datetime.get_date(),
     padding = { right = " " },
-    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -36,7 +36,7 @@ M.right.time = function()
   return {
     icon = handlers.datetime.get_time_icon(icons),
     provider = handlers.datetime.get_time(),
-    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 

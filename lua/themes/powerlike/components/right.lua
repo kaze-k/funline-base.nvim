@@ -275,7 +275,7 @@ M.lineinfo = function()
       handlers.file.get_total_line()
     ),
     padding = padding,
-    hl = { fg = utils.get_hl("StatusLine").bg, bg = handlers.mode.get_mode_color(colors.mode_colors), bold = true },
+    hl = { fg = utils.get_hl("StatusLineNC").bg, bg = handlers.mode.get_mode_color(colors.mode_colors), bold = true },
   }
 end
 

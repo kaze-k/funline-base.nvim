@@ -12,7 +12,7 @@ M.mode = function()
     icon = handlers.mode.get_mode_icon(mode_icons),
     provider = handlers.mode.get_vim_mode(),
     padding = padding,
-    hl = { fg = utils.get_hl("StatusLine").bg, bg = handlers.mode.get_mode_color(colors.mode_colors), bold = true },
+    hl = { fg = utils.get_hl("StatusLineNC").bg, bg = handlers.mode.get_mode_color(colors.mode_colors), bold = true },
   }
 end
 

@@ -10,7 +10,7 @@ M.date = function()
     icon = "",
     provider = handlers.datetime.get_date(),
     padding = { right = " " },
-    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -20,7 +20,7 @@ M.time = function()
   return {
     icon = handlers.datetime.get_time_icon(icons),
     provider = handlers.datetime.get_time(),
-    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 

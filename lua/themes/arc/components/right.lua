@@ -28,7 +28,7 @@ M.search = function()
       icon = icons[vim.fn.getcmdtype():sub(1, 1)] or icons.default,
       provider = utils.is_widen_condition(140) and formated_str or search_term,
       padding = padding,
-      hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLine").bg },
+      hl = { fg = colors.light_yellow, bg = utils.get_hl("StatusLineNC").bg },
     }
   end
 end
@@ -39,7 +39,7 @@ M.spell = function()
     icon = "󰓆",
     provider = utils.is_widen_condition(140) and handlers.opt.get_spelllang(),
     padding = padding,
-    hl = { fg = colors.red, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.red, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -49,7 +49,7 @@ M.diagnosticError = function()
     icon = "",
     provider = handlers.lsp.get_diagnostics_count("ERROR"),
     padding = padding,
-    hl = { fg = colors.red, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.red, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -59,7 +59,7 @@ M.diagnosticWarn = function()
     icon = "",
     provider = handlers.lsp.get_diagnostics_count("WARN"),
     padding = padding,
-    hl = { fg = colors.light_orange, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.light_orange, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -69,7 +69,7 @@ M.diagnosticHint = function()
     icon = "󰌶",
     provider = handlers.lsp.get_diagnostics_count("HINT"),
     padding = padding,
-    hl = { fg = colors.light_cyan, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.light_cyan, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -79,7 +79,7 @@ M.diagnosticInfo = function()
     icon = "",
     provider = handlers.lsp.get_diagnostics_count("INFO"),
     padding = padding,
-    hl = { fg = colors.light_blue, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.light_blue, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -104,7 +104,7 @@ M.lspstatus = function(ctx)
     icon = pending and lsp_loading() or (utils.is_widen_condition(140) and icons.widen or icons.normal),
     provider = utils.is_widen_condition(140) and provider_str or "LSP",
     padding = padding,
-    hl = { fg = colors.cyan, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.cyan, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -122,7 +122,7 @@ M.nlsstatus = function(ctx)
     icon = pending and nls_loading() or "",
     provider = "NLS",
     padding = padding,
-    hl = { fg = colors.cyan, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.cyan, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -136,7 +136,7 @@ M.autosave = function()
     condition = handlers.plugins.is_autosave_exists(),
     icon = handlers.plugins.get_autosave_status() and icons.on or icons.off,
     padding = padding,
-    hl = { fg = colors.light_cyan, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.light_cyan, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -145,7 +145,7 @@ M.lazystatus = function()
     condition = handlers.plugins.is_lazy_exists(),
     provider = handlers.plugins.get_lazy_updates(),
     padding = padding,
-    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.yellow, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -171,7 +171,7 @@ M.windsurf = function(ctx)
     icon = tag == "LOADING" and string.format("%s ", windsurf_loading()) or icons[tag],
     provider = status,
     padding = padding,
-    hl = { fg = colors.turquoise, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.turquoise, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -180,7 +180,7 @@ M.fileindent = function()
     condition = utils.is_widen_condition(140),
     provider = handlers.file.get_file_indent(),
     padding = padding,
-    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.pink, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -190,7 +190,7 @@ M.filetype = function()
     condition = utils.is_widen_condition(140),
     provider = handlers.file.get_filetype(),
     padding = padding,
-    hl = { fg = colors.green, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.green, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -213,7 +213,7 @@ M.fileformat = function()
     icon = icons[file_format],
     provider = providers[file_format],
     padding = padding,
-    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.pink, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -240,7 +240,7 @@ M.lineratio = function()
     icon = handlers.file.get_position(icons.top, icons.bottom, icons[math.ceil(line_ratio / #icons)]),
     provider = handlers.file.get_position("TOP", "BOT", string.format("%s%%", tostring(line_ratio))),
     padding = padding,
-    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLine").bg },
+    hl = { fg = colors.light_green, bg = utils.get_hl("StatusLineNC").bg },
   }
 end
 
@@ -253,7 +253,7 @@ M.lineinfo = function()
       handlers.file.get_current_line(),
       handlers.file.get_total_line()
     ),
-    hl = { fg = colors.pink, bg = utils.get_hl("StatusLine").bg, bold = true },
+    hl = { fg = colors.pink, bg = utils.get_hl("StatusLineNC").bg, bold = true },
   }
 end
 
