@@ -8,7 +8,13 @@ local M = {}
 
 function M.is_filname_exists() return not utils.is_match_buftype("nofile") and not utils.is_match_buftype("prompt") end
 
-function M.get_filename() return fn.expand("%:t") end
+function M.get_filename()
+  local filename = fn.expand("%:t")
+  if filename == "" then
+    filename = "[No Name]"
+  end
+  return filename
+end
 
 function M.get_filetype() return bo.filetype end
 
